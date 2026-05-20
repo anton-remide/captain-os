@@ -4,6 +4,7 @@ import { createSnapshot, rollbackSnapshot, listSnapshots } from './snapshot-engi
 import { printReadinessConsole } from './readiness-eval.js';
 import { runSetupWizard } from './setup-wizard.js';
 import { runValidator } from './lock-validator.js';
+import { executeSimplificationPipeline } from './simplifier.js';
 
 const command = process.argv[2] || 'help';
 
@@ -19,6 +20,12 @@ if (command === 'doctor') {
   }
 } else if (command === 'validate-lock' || command === 'check-lock') {
   runValidator();
+} else if (command === 'simplify') {
+  const isDryRun = process.argv.includes('--dry-run');
+  executeSimplificationPipeline(process.cwd(), isDryRun).catch(e => {
+    console.error('❌ Конвейер SimplifyCode завершился с ошибкой:', e.message);
+    process.exit(1);
+  });
 } else if (command === 'snapshot' || command === 'snapshots') {
   const subCommand = process.argv[3];
   if (subCommand === 'save' || subCommand === '--save') {
@@ -38,8 +45,8 @@ if (command === 'doctor') {
   console.log('  init                 - Initialize project workspace (add --dry-run for non-interactive)');
   console.log('  doctor               - Check environment health and readiness');
   console.log('  validate-lock        - Validate .captain-os.lock.json structure and policies');
+  console.log('  simplify             - Run code simplification pipeline (add --dry-run for preview)');
   console.log('  snapshot list        - List all saved snapshots');
   console.log('  snapshot save "desc" - Create a new configuration snapshot');
   console.log('  rollback [id]        - Restore a specific snapshot (default: last)');
 }
-

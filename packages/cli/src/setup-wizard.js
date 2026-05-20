@@ -48,6 +48,41 @@ function checkRuntimeEnvironment() {
   };
 }
 
+function printUserAgreement(projectName, ownerName, runtimes, ragPaths, ledgerPath, useGitForIssues) {
+  console.log('\n\x1b[35m======================================================================\x1b[0m');
+  console.log('\x1b[35m📋  🤖  ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ И ПРАВИЛА РАБОТЫ CAPTAIN OS  🤖  📋\x1b[0m');
+  console.log('\x1b[35m======================================================================\x1b[0m\n');
+  
+  console.log(`Приветствуем, \x1b[32m${ownerName}\x1b[0m!`);
+  console.log(`Ваш проект \x1b[36m${projectName}\x1b[0m подготовлен к интеграции управляющего ядра мета-ОС.\n`);
+
+  console.log('\x1b[1m⚙️  1. ИНТЕГРАЦИЯ И ДИНАМИЧЕСКИЙ ВЫБОР КАПИТАНА (RUNTIMES):\x1b[0m');
+  console.log(`   - \x1b[33mГлавный разработчик (Оператор)\x1b[0m: ${ownerName}`);
+  console.log(`   - \x1b[33mДинамический выбор Капитана (Dynamic Captain Mode)\x1b[0m: Управляющей моделью`);
+  console.log(`     автоматически становится тот ИИ-ассистент, из сессии которого начата работа.`);
+  console.log(`     Доступные рантаймы в контуре: \x1b[36m${runtimes.join(', ')}\x1b[0m`);
+  console.log(`   - \x1b[33mПараллельное ревью (AWD-контур)\x1b[0m: При сложных или междоменных задачах`);
+  console.log(`     автоматически подключается внешняя ЛЛМ (Claude/Codex) для перекрестной проверки.\n`);
+
+  console.log('\x1b[1m📂  2. УПРАВЛЕНИЕ КОНТЕКСТОМ И СОСТОЯНИЕМ (STATE & STORAGE):\x1b[0m');
+  console.log(`   - \x1b[33mБаза знаний RAG (Локальный поиск)\x1b[0m: Строится по папкам: \x1b[36m${ragPaths.join(', ')}\x1b[0m`);
+  console.log(`   - \x1b[33mРеестр качества (Дефекты)\x1b[0m: Список зарегистрированных багов хранится в \x1b[32m${ledgerPath}\x1b[0m`);
+  console.log(`   - \x1b[33mСпикер состояния задач (Task Spine)\x1b[0m: Состояние задач пишется в \x1b[32m.captain-os/task-spine.yaml\x1b[0m`);
+  console.log(`   - \x1b[33mСинхронизация задач (Issues)\x1b[0m: ${useGitForIssues ? '\x1b[32mЗапись напрямую в локальную историю Git (без внешнего мусора)\x1b[0m' : '\x1b[31mРучной режим / Внешний трекер\x1b[0m'}\n`);
+
+  console.log('\x1b[1m🛡️  3. РЕГЛАМЕНТ ИЗМЕНЕНИЙ И ГЕЙТЫ КАЧЕСТВА (CODE POLICY & KISS):\x1b[0m');
+  console.log('   - 🧠 \x1b[33mИзначальная лаконичность (KISS)\x1b[0m: Агенты обязаны вносить минимально возможные');
+  console.log('     изменения в кодовую базу. Минимум строк, минимум функций, максимальная опора на RAG.');
+  console.log('   - 🔒 \x1b[33mЗащита стабильного легаси-кода\x1b[0m: Автоматический рефакторинг старых файлов запрещен.');
+  console.log('     Любое изменение старого кода требует Conscious Agreement (ручного согласия [Y/N] разработчика).');
+  console.log('   - ✨ \x1b[33mАвто-оптимизация новых файлов\x1b[0m: Новые файлы, созданные ИИ в процессе выполнения');
+  console.log('     задачи, автоматически упрощаются и приводятся к лаконичному виду.');
+  console.log('   - 🧪 \x1b[33mБезопасность рантайма (Mechanical Rollback)\x1b[0m: Перед упрощением создается снапшот.');
+  console.log('     Если после оптимизаций падают авто-тесты — система мгновенно возвращает исходный рабочий код.\n');
+
+  console.log('\x1b[35m----------------------------------------------------------------------\x1b[0m\n');
+}
+
 export async function runSetupWizard(interactive = true, defaults = {}) {
   console.log('\n======================================================================');
   console.log('🚀  🤖  Plexo Captain OS - Интерактивный Мастер Настройки  🤖  🚀');
@@ -111,6 +146,29 @@ export async function runSetupWizard(interactive = true, defaults = {}) {
       if (ans.trim()) ledgerPath = ans.trim();
     }
 
+    // 6. Согласие на использование Git для issues
+    let useGitForIssues = true;
+    if (rl) {
+      console.log('\n📝 Использование Git-трекера для задач (Issues)');
+      console.log('   Мы можем записывать и синхронизировать все issues/задачи прямо в Git-историю,');
+      console.log('   чтобы гарантировать чистоту проекта и не замусоривать его внешними трекерами.');
+      const ans = await askQuestion(rl, `   Использовать Git-трекер для issues? (y/n) [y]: `);
+      if (ans.trim().toLowerCase() === 'n' || ans.trim().toLowerCase() === 'no') {
+        useGitForIssues = false;
+      }
+    }
+
+    // Вывод Пользовательского соглашения и Правил работы
+    if (rl) {
+      printUserAgreement(projectName, ownerName, runtimes, ragPaths, ledgerPath, useGitForIssues);
+      const agree = await askQuestion(rl, '📝 Вы согласны со способом работы Captain OS и готовы ее запустить? (y/n) [y]: ');
+      if (agree.trim().toLowerCase() === 'n' || agree.trim().toLowerCase() === 'no') {
+        console.log('\n❌ Инициализация отменена. Управляющее ядро Captain OS не запущено. 👋\n');
+        rl.close();
+        return;
+      }
+    }
+
     console.log('\n💾 Генерация конфигурационных файлов...');
 
     const configDir = resolve(process.cwd(), '.captain-os');
@@ -146,6 +204,7 @@ sourceOfTruth:
   strategic: docs
   actionable: github
   evidence: local_ship
+  useGitForIssues: ${useGitForIssues}
 
 paths:
   repairLedger: ${ledgerPath}

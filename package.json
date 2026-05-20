@@ -12,6 +12,6 @@
     "snapshot:save": "node packages/cli/src/index.js snapshot save",
     "snapshot:list": "node packages/cli/src/index.js snapshot list",
     "rollback": "node packages/cli/src/index.js rollback",
-    "test": "node packages/cli/src/index.js doctor"
+    "test": "node packages/cli/src/index.js doctor && node packages/cli/src/simplifier.test.js"
   }
 }

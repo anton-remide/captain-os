@@ -27,6 +27,7 @@ sourceOfTruth:
   strategic: docs
   actionable: github
   evidence: local_ship
+  useGitForIssues: true
 
 paths:
   repairLedger: .ship/repair-ledger.json
