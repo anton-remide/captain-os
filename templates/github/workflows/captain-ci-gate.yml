@@ -1,0 +1,37 @@
+name: 🏎️ Captain OS: Quality & Integration Gates
+
+on:
+  push:
+    branches: [ main, dev, master ]
+  pull_request:
+    branches: [ main, dev, master ]
+
+jobs:
+  captain-gates:
+    name: Verify Captain OS Gates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci || npm install
+
+      - name: 🔒 Gate 1: Fermat Quality (Validate Lockfile)
+        run: npx captain-os validate-lock
+        continue-on-error: false
+
+      - name: 📊 Gate 2: OS Readiness Assessment (Doctor Check)
+        run: npx captain-os doctor
+        continue-on-error: true # Выдает предупреждения, но не валит билд при недостатке локального RAG на CI
+
+      - name: 🧪 Gate 3: Project Unit Tests
+        run: npm test || bun test
+        continue-on-error: false
