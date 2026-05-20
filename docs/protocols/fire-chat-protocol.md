@@ -49,14 +49,25 @@ graph TD
 
 ---
 
-## 📋 Protocol Phases
+## 📋 Protocol Phases & Strategic Milestones
+
+To maximize resource efficiency and maintain rapid development velocities, the **Multi-LLM Fire Chat Protocol** is strategically positioned at key project milestones rather than running continuously on every keystroke. The operational cycle is structured as follows:
+
+### 🎯 Strategic Placement
+1. **Milestone A: The Planning Phase (Baseline Consensus):** Fire Chat is triggered at the absolute start of a task. The triple parallel debate is used to establish the optimal architectural strategy, database schema approach, and boundaries *before* any code is written.
+2. **Milestone B: Intermediate Micro-Iterations (Fast Local Dev):** During intermediate coding rounds, a single primary engine writes code, and a highly optimized, fast, and cost-efficient micro-agent (such as **Gemini 3.5 Flash**) acts as the independent local judge/evaluator to run quick verification checks.
+3. **Milestone C: The Pre-Merge Phase (Final Gates Audit):** Before code is merged into the `main` branch or sent to deployment (Gate 13), the full Fire Chat protocol is triggered once more to verify the unified diff, catch edge cases, and run the final SRE consensus audit.
+
+---
+
+## 🛠️ Step-by-Step Execution Lifecycle
 
 ### Phase 1: Dynamic Role Allocation
 The **Dynamic Expert Dispatcher (DED)** inspects the target file paths and context. It generates a highly focused expert prompt matching the domain. 
 * *Example:* If modifying `src/database/transactions.ts`, it dispatches the **Database Concurrency & Transaction Isolation Specialist** role.
 
 ### Phase 2: Triple Parallel Execution
-The prompt is executed concurrently across three distinct API backends:
+During Planning and Pre-Merge phases, the prompt is executed concurrently across three distinct API backends:
 1. **Gemini 3.1 Pro:** Evaluates deep contextual references and searches for edge cases within large dependency trees.
 2. **Claude 4.7:** Produces highly readable, cleanly typed, and structured structural changes.
 3. **Codex 5.3 / GPT-5.5:** Focuses on pure algorithmic optimization, local state efficiency, and idiomatic performance.
@@ -67,8 +78,15 @@ The outputs are compiled by the **SRE Consensus Arbiter**. The Arbiter performs 
 * **Zero Security Blocks:** If even one model flags a potential security vulnerability (e.g. SQL injection, route exposure, secret leakage), the change is blocked, and the debate is reopened.
 * **The Fire Debate:** If consensus is not reached, the Arbiter generates a critical review highlighting the differences (e.g., *"Model A uses optimistic locking, while Model B and C use pessimistic transactions"*). This critique is fed back to the models for a second round of execution.
 
-### Phase 4: Unified Change Synthesis
-Once consensus is reached, the Arbiter consolidates the optimal pieces of each model's output into a **Unified Change Packet**. This packet is applied to the codebase.
+### Phase 4: Unified Change Synthesis & Micro-Auditing
+Once consensus is reached, the Arbiter consolidates the optimal pieces of each model's output into a **Unified Change Packet**. 
+
+* **Micro-Auditing (Gemini 3.5 Flash как Независимый Судья):** During the active coding phase, intermediate revisions are evaluated by a fast, cost-efficient, and dedicated **Gemini 3.5 Flash** micro-agent. This micro-agent acts as the autonomous local "judge" that quickly validates compile states, checks basic lint rules, and ensures intermediate steps don't break the build before the next big code turn.
+
+#### 💡 Почему именно Gemini 3.5 Flash для роли Судьи?
+1. **Сверхнизкая задержка (Ultra-low Latency):** При итеративном написании кода разработчик или ИИ не могут ждать по 30–60 секунд ответа от тяжелых моделей на каждый мелкий шаг. Gemini 3.5 Flash возвращает вердикт за 1.5–3 секунды, поддерживая высокий темп разработки.
+2. **Задача классификации и верификации:** Оценка промежуточного кода — это преимущественно чтение и сопоставление (анализ вывода компилятора, логов тестов, синтаксических ошибок). Это не требует генеративного воображения глубоких моделей; здесь важна точность парсинга и скорость, где Flash превосходит тяжелые модели по соотношению цена/производительность.
+3. **Предотвращение бесконечных субъективных циклов:** Крупные LLM (например, Claude 4.7 или GPT-5.5) склонны «умничать» и бесконечно рефакторить код из субъективных соображений стиля. Маленький изолированный судья беспристрастен: он проверяет только строгие критерии (компилируется ли код, проходят ли тесты, соблюден ли Splash Radius) и выдает жесткий вердикт PASS/FAIL без попыток переписать рабочее решение.
 
 ### Phase 5: Closed-Loop Verification
 The local SimplifyCode engine immediately triggers **Gate 7 (Mechanical Rollback)**:
@@ -83,3 +101,4 @@ The local SimplifyCode engine immediately triggers **Gate 7 (Mechanical Rollback
 1. **Hallucination Suppression:** Different LLMs have different training data and cognitive strengths. A hallucination in one engine is instantly caught and discarded by the other two.
 2. **Avoiding "Local Minima":** A single model might settle on a lazy, quick-fix solution. The Fire Chat consensus forces a standard of quality that satisfies three distinct neural systems.
 3. **Uncompromising Security:** Multiple models reviewing code from different viewpoints acts as a high-density security scanner, preventing accidental vulnerability commits.
+
