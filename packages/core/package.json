@@ -1,0 +1,11 @@
+{
+  "name": "@captain-os/core",
+  "version": "0.1.0-local-p11a",
+  "private": true,
+  "type": "module",
+  "main": "src/ship.ts",
+  "types": "src/ship.ts",
+  "dependencies": {
+    "yaml": "^2.8.3"
+  }
+}

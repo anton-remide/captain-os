@@ -1,0 +1,22 @@
+{
+  "id": "cms-fake-persistence",
+  "title": "CMS controls cannot fake persistence",
+  "task": "Preserve and repair CMS save/reload/publish behavior. A disabled or local-only source update must explain why and must not fake persistence.",
+  "sourceCase": "docs/process/captain-os-lab/16-operating-system-readiness-review.md#cms-fake-persistence",
+  "tags": ["preserve_and_repair", "cms", "persistence", "publish"],
+  "expected": {
+    "intentMode": "preserve_and_repair",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "missing_save_reload_publish_proof",
+      "fake_persistence_risk"
+    ],
+    "requiredSailors": ["Captain", "CMS", "Context", "QA", "StarPom"]
+  },
+  "context": {
+    "acceptedBaseline": "CMS save/reload/publish loop",
+    "targetObject": "CMS editor persistence controls"
+  }
+}
+

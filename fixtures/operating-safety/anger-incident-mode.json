@@ -1,0 +1,26 @@
+{
+  "id": "anger-incident-mode",
+  "title": "Anger incident answer-first mode",
+  "task": "Anton is angry and asks why the agent ignored his screenshot. The runtime must enter incident answer-first mode instead of starting another fix.",
+  "sourceCase": "docs/process/captain-os-lab/38-p0-operating-safety-stop-visual-span.md#anger-incident",
+  "tags": ["operating_safety", "anger_incident", "answer_first"],
+  "expected": {
+    "intentMode": "incident_repair",
+    "minComplexityTier": "T2",
+    "minPlanDepth": "D2",
+    "requiredBlocks": [
+      "stop_and_answer_required",
+      "anger_incident_answer_required"
+    ],
+    "requiredSailors": ["Captain", "StarPom"]
+  },
+  "context": {
+    "directQuestion": "true",
+    "angerIncidentMode": "true",
+    "answerRequiredBeforeAction": "true",
+    "userIntentRows": "Answer why the screenshot request was ignored before any repair action.",
+    "targetSurface": "UI Library visible screenshot",
+    "visibleObject": "screenshot-marked object",
+    "acceptanceObject": "incident answer before repair"
+  }
+}

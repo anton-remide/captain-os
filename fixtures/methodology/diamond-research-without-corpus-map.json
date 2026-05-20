@@ -1,0 +1,22 @@
+{
+  "id": "diamond-research-without-corpus-map",
+  "title": "Diamond research without corpus map",
+  "task": "Captain OS strategy methodology case: deep research was performed, but it has no corpus map, freshness envelope, excluded sources, or confidence limits before execution.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#starpom-blocks",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["missing_diamond_research_corpus"],
+    "requiredSailors": ["Captain", "Context", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "false",
+    "sourceFreshnessCurrent": "false",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "acceptanceObject": "Research-to-execution corpus map"
+  }
+}
+

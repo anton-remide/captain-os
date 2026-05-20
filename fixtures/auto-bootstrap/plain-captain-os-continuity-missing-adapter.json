@@ -1,0 +1,27 @@
+{
+  "id": "plain-captain-os-continuity-missing-adapter",
+  "title": "Plain Captain OS continuity audit missing adapter",
+  "task": "Посмотри, пожалуйста, в этом проекте, как устроена Captain OS для продолжения работы между сессиями. Мне нужно простое read-only заключение: если я завтра открою новую сессию или другой LLM, сможет ли он восстановить контекст задачи из локальных файлов и GitHub, без чтения всей старой переписки?",
+  "sourceCase": "docs/process/captain-os-lab/49-p11f-auto-bootstrap-canary.md#missing-adapter-control",
+  "tags": ["captain_os_auto_bootstrap", "captain_os_runtime", "read_only_audit", "continuity"],
+  "expected": {
+    "intentMode": "system_refactor",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["captain_os_adapter_missing"],
+    "requiredSailors": ["Captain", "Context", "Runtime", "QA", "Shipping", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "forceMissingCaptainOsAdapter": "true",
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "checklistEvidenceComplete": "true",
+    "executionPlanComplete": "true",
+    "radiusArtifact": "true",
+    "affectedSurfaces": "captain_os_runtime",
+    "acceptanceObject": "explicit missing_adapter verdict",
+    "currentState": "Adapter files are absent or unavailable in the worktree.",
+    "targetState": "Agent stops with missing_adapter instead of silently falling back to legacy process docs."
+  }
+}

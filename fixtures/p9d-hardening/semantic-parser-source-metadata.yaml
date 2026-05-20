@@ -1,0 +1,81 @@
+version: 1
+id: P9E-SEMANTIC-PARSER-SOURCE-METADATA
+title: Parser freshness claims need source metadata and run-log proof
+intentMode: preserve_and_repair
+complexityTier: T3
+planDepth: D3
+captainMode: full_ship_cycle
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/33-p9b-batch0-judge-reconciliation-and-p9e-hardening.md]
+acceptanceObjects: ["source metadata, freshness, and parser/worker run-log proof"]
+requestedObjects: [parser/worker run data-quality evidence]
+coverageMap:
+  - object: parser/worker run data-quality evidence
+    status: covered
+    checklistRefs: [CHK-P9E-PARSER-METADATA]
+    owner: Runtime
+    reason: Parser run evidence is the requested inspection object.
+  - object: source metadata, freshness, and parser/worker run-log proof
+    status: covered
+    checklistRefs: [CHK-P9E-PARSER-METADATA]
+    owner: QA
+    reason: Freshness proof is the acceptance object.
+acceptedRisks: []
+sailors:
+  - sailor: Captain
+    owns: [data-quality packet]
+    mayDecide: [scope]
+    mustNotChange: [source-of-truth policy]
+    mustEscalateIf: [run log missing]
+    evidenceOwed: [data-quality packet]
+  - sailor: Runtime
+    owns: [parser run evidence]
+    mayDecide: [run-log shape]
+    mustNotChange: [data freshness policy]
+    mustEscalateIf: [source metadata missing]
+    evidenceOwed: [source metadata proof]
+  - sailor: QA
+    owns: [freshness verification]
+    mayDecide: [fixture assertion]
+    mustNotChange: [semantic validator]
+    mustEscalateIf: [proof object is generic]
+    evidenceOwed: [parser_source_metadata_freshness_runlog_required]
+  - sailor: StarPom
+    owns: [final claim block]
+    mayDecide: [closure status]
+    mustNotChange: [accepted_full policy]
+    mustEscalateIf: [freshness proof missing]
+    evidenceOwed: [blocked closeout]
+checklist:
+  - id: CHK-P9E-PARSER-METADATA
+    sourceRequirement: Data freshness claims from parser or worker runs require source metadata, freshness proof, and parser/worker run-log proof.
+    owner: QA
+    scope: [data, parser, worker, freshness]
+    forbiddenScope: [generic baseline substitution]
+    acceptanceObject: source metadata, freshness, and parser/worker run-log proof
+    userInspectionObject: parser/worker run data-quality evidence
+    agentAcceptanceObject: source metadata, freshness, and parser/worker run-log proof
+    acceptanceObjectMatch: true
+    requiredEvidence: [advisory-report.json]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9E-PARSER-METADATA]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9E-PARSER-METADATA
+    claimId: CHK-P9E-PARSER-METADATA
+    refs:
+      - type: artifact
+        value: generic advisory artifact
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

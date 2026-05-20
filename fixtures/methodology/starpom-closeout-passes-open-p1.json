@@ -1,0 +1,23 @@
+{
+  "id": "starpom-closeout-passes-open-p1",
+  "title": "StarPom closeout passes open P1",
+  "task": "Captain OS strategy methodology case: StarPom reports the process as passed while open P1 claims are not bound to closed evidence rows.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#close",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["starpom_closeout_without_claim_binding"],
+    "requiredSailors": ["Captain", "QA", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "starpomCloseoutNoBinding": "true",
+    "acceptanceObject": "Claim-bound StarPom closeout"
+  }
+}
+

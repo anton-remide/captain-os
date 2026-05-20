@@ -1,0 +1,19 @@
+{
+  "id": "clean-success-control",
+  "title": "Clean low-risk shadow control",
+  "task": "Run a narrow read-only shadow classification for a single factual note. No final readiness, no copy_exact, no CMS, no security, no PR, and no production mutation are requested.",
+  "sourceCase": "docs/process/captain-os-lab/18-implementation-spec-shadow-runner-v0.md#fixture-basket",
+  "tags": ["control", "low_risk"],
+  "expected": {
+    "intentMode": "bounded_build",
+    "minComplexityTier": "T1",
+    "minPlanDepth": "D1",
+    "requiredBlocks": [],
+    "nonBlockingWarnings": [],
+    "requiredSailors": ["Captain"]
+  },
+  "context": {
+    "targetObject": "Shadow classifier control case"
+  }
+}
+

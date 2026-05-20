@@ -1,0 +1,21 @@
+{
+  "id": "keynote-stage-flat",
+  "title": "Keynote stage visual work needs rendered visual evidence",
+  "task": "Build the bounded visual fix for a keynote stage surface. Do not accept text-only reports; prove the stage state with rendered visual evidence.",
+  "sourceCase": "docs/process/captain-os-lab/16-operating-system-readiness-review.md#keynote-stage-flat",
+  "tags": ["bounded_build", "surface", "visual_evidence", "deck"],
+  "expected": {
+    "intentMode": "bounded_build",
+    "minComplexityTier": "T2",
+    "minPlanDepth": "D2",
+    "requiredBlocks": [
+      "text_only_acceptance_risk",
+      "missing_stage_visual_evidence"
+    ],
+    "requiredSailors": ["Captain", "QA"]
+  },
+  "context": {
+    "targetObject": "Rendered keynote stage visual state"
+  }
+}
+

@@ -1,0 +1,308 @@
+import type {
+  ClassificationArtifact,
+  ContextRuntimeArtifact,
+  CrossLlmPhase,
+  CrossLlmSlaArtifact,
+  EvidenceAggregationArtifact,
+  LabInput,
+  PacketPreviewArtifact,
+  SplashRadiusArtifact,
+} from './schema'
+import { fileExists, repoRoot } from './io'
+import { resolve } from 'node:path'
+
+function bool(value: string | undefined): boolean {
+  return /^(true|yes|1)$/i.test(value ?? '')
+}
+
+function splitList(value: string | undefined): string[] {
+  if (!value) return []
+  return value
+    .split(/[;\n|,]/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+}
+
+function unique(values: string[]): string[] {
+  return [...new Set(values.filter(Boolean))]
+}
+
+function hasAny(text: string, patterns: RegExp[]): boolean {
+  return patterns.some((pattern) => pattern.test(text))
+}
+
+function tierNumber(tier: ClassificationArtifact['complexityTier']): number {
+  return Number(tier.slice(1))
+}
+
+const CAPTAIN_OS_ADAPTER_REFS = [
+  'CLAUDE.md',
+  'AGENTS.md',
+  '.captain-os/project.yaml',
+  '.captain-os/runtime-adapters.yaml',
+  '.captain-os/owner-registry.yaml',
+  '.captain-os.lock.json',
+  '.captain-os/task-spine.yaml',
+  'docs/process/captain-os-lab/43-cross-llm-swarm-runtime.md',
+  'docs/process/captain-os-lab/47-single-lane-deep-work-and-task-spine.md',
+  'docs/process/captain-os-lab/48-captain-os-github-backlog-map.md',
+] as const
+
+function isCaptainOsBootstrapTask(text: string): boolean {
+  return hasAny(text, [
+    /captain os/,
+    /captain\s+system/,
+    /\.captain-os/,
+    /task[- ]?spine/,
+    /state machine/,
+    /session recovery/,
+    /continue.*session/,
+    /between sessions/,
+    /another llm/,
+    /other llm/,
+    /github.*backlog/,
+    /операционн.*систем/,
+    /капитан.*os/,
+    /межсессион/,
+    /нов(ая|ую).*сесс/,
+    /друг(ой|ого).*llm/,
+    /восстанов.*контекст/,
+    /продолж.*без.*переписк/,
+  ])
+}
+
+function adapterFileExists(path: string): boolean {
+  return fileExists(resolve(repoRoot(), path))
+}
+
+export function buildContextRuntimeArtifact(
+  input: LabInput,
+  classification: ClassificationArtifact,
+): ContextRuntimeArtifact {
+  const text = `${input.title}\n${input.task}\n${input.tags.join(' ')}\n${Object.values(input.context).join(' ')}`.toLowerCase()
+  const captainOsAdapterRequired =
+    isCaptainOsBootstrapTask(text) ||
+    input.tags.includes('captain_os_auto_bootstrap') ||
+    input.tags.includes('captain_os_runtime')
+  const missingAdapterForced = bool(input.context.forceMissingCaptainOsAdapter)
+  const missingAdapterFiles = captainOsAdapterRequired &&
+    CAPTAIN_OS_ADAPTER_REFS.some((ref) => ref.startsWith('.captain-os') && !adapterFileExists(ref))
+  const captainOsAdapterStatus = !captainOsAdapterRequired
+    ? 'not_required'
+    : missingAdapterForced || missingAdapterFiles
+      ? 'missing_adapter'
+      : 'present'
+  const ragRequired = classification.captainMode !== 'direct_answer' || classification.complexityTier !== 'T0'
+  const explicitRagRefs = unique([
+    ...splitList(input.context.ragPackRefs),
+    ...splitList(input.context.contextPackRefs),
+  ])
+  const ragPackRefs = explicitRagRefs.length > 0
+    ? explicitRagRefs
+    : unique([
+      ...(input.sourceDocs.length > 0 ? input.sourceDocs : ['inline-task-context']),
+      ...(captainOsAdapterRequired ? CAPTAIN_OS_ADAPTER_REFS : []),
+    ])
+  const ragPackInjected = !bool(input.context.forceMissingRagPack) && ragPackRefs.length > 0
+
+  const sessionPackRequired = tierNumber(classification.complexityTier) >= 3 ||
+    classification.hardWorkRequired ||
+    classification.octopusRequired
+  const explicitSessionRefs = splitList(input.context.sessionPackRefs)
+  const sessionPackRefs = explicitSessionRefs.length > 0
+    ? explicitSessionRefs
+    : ['inline-session-summary', `task-digest:${input.id || input.fixtureId || 'ad-hoc-task'}`]
+  const sessionPackInjected = !bool(input.context.forceMissingSessionPack) &&
+    (!sessionPackRequired || sessionPackRefs.length > 0)
+  const contextBudgetRefs = unique([
+    ...splitList(input.context.contextBudgetRefs),
+    'captain-summary',
+    'role-scoped-source-docs',
+    'forbidden-broadcast-context',
+  ])
+  const blocks: string[] = []
+
+  if (ragRequired && !ragPackInjected) blocks.push('rag_context_pack_missing')
+  if (sessionPackRequired && !sessionPackInjected) blocks.push('session_pack_missing')
+  if (bool(input.context.staleRagPack)) blocks.push('missing_rag_freshness')
+  if (captainOsAdapterRequired && captainOsAdapterStatus === 'missing_adapter') blocks.push('captain_os_adapter_missing')
+
+  return {
+    ragRequired,
+    ragPackInjected,
+    ragPackRefs,
+    captainOsAdapterRequired,
+    captainOsAdapterStatus,
+    captainOsAdapterRefs: captainOsAdapterRequired ? [...CAPTAIN_OS_ADAPTER_REFS] : [],
+    sessionPackRequired,
+    sessionPackInjected,
+    sessionPackRefs,
+    contextBudgetApplied: true,
+    contextBudgetRefs,
+    autoInsertMode: explicitRagRefs.length > 0 || explicitSessionRefs.length > 0
+      ? 'explicit_refs'
+      : 'autogenerated_from_task_and_source_docs',
+    blocks: unique(blocks),
+    nextAction: blocks.length > 0
+      ? 'Attach a scoped RAG/session pack before packet, crew dispatch, or final claim.'
+      : 'Scoped RAG/session context is attached to the Captain packet.',
+  }
+}
+
+export function buildSplashRadiusArtifact(
+  input: LabInput,
+  classification: ClassificationArtifact,
+  packetPreview: PacketPreviewArtifact,
+): SplashRadiusArtifact {
+  const text = `${input.title}\n${input.task}\n${input.tags.join(' ')}\n${Object.values(input.context).join(' ')}`.toLowerCase()
+  const affectedSurfaces = unique([
+    ...splitList(input.context.affectedSurfaces),
+    ...[
+      hasAny(text, [/\bui\b|visual|screenshot|graphic|preview|viewport|rail|shell|скрин|визуаль/]) ? 'ui_visual' : '',
+      hasAny(text, [/\bcms\b|notion|source|publish|save|сохран|публикац/]) ? 'cms_source' : '',
+      hasAny(text, [/public|studio|auth|security|bundle|chunk|безопасн/]) ? 'security_public_boundary' : '',
+      hasAny(text, [/data|supabase|entity|stablecoin|parser|worker/]) ? 'data_runtime' : '',
+      hasAny(text, [/captain os|runtime|state machine|rag|radius|claude|агент|капитан/]) ? 'captain_os_runtime' : '',
+    ],
+  ])
+  const crossDomain = bool(input.context.crossDomain) || affectedSurfaces.length > 1 || classification.riskScores.blastRadius >= 3
+  const required = classification.complexityTier !== 'T0'
+  const blastRadiusRequired = required || crossDomain
+  const explicitScope = splitList(input.context.changedScope)
+  const changedScopeRefs = explicitScope.length > 0
+    ? explicitScope
+    : unique([...packetPreview.blastRadiusNeeds, ...affectedSurfaces, 'forbidden-scope'])
+  const splashRadiusHookInjected = !bool(input.context.forceMissingSplashRadius) && changedScopeRefs.length > 0
+  const blocks: string[] = []
+
+  if (blastRadiusRequired && !splashRadiusHookInjected) blocks.push('splash_radius_hook_missing')
+  if (crossDomain && !splashRadiusHookInjected) blocks.push('missing_context_radius_artifact')
+
+  return {
+    required,
+    hookPosition: 'before_packet_and_crew',
+    splashRadiusHookInjected,
+    blastRadiusRequired,
+    crossDomain,
+    changedScopeRefs,
+    affectedSurfaces,
+    forbiddenScopeRefs: packetPreview.forbiddenScope,
+    blocks: unique(blocks),
+    nextAction: blocks.length > 0
+      ? 'Run or attach splash/blast radius before cross-domain work or crew dispatch.'
+      : 'Splash/blast radius is attached before packet and crew states.',
+  }
+}
+
+export function buildCrossLlmSlaArtifact(
+  input: LabInput,
+  classification: ClassificationArtifact,
+  splashRadius: SplashRadiusArtifact,
+): CrossLlmSlaArtifact {
+  const text = `${input.title}\n${input.task}\n${input.tags.join(' ')}\n${Object.values(input.context).join(' ')}`.toLowerCase()
+  const forced = bool(input.context.crossLlmRequired)
+  const planReviewRequired = forced ||
+    tierNumber(classification.complexityTier) >= 3 ||
+    classification.hardWorkRequired ||
+    classification.octopusRequired ||
+    splashRadius.crossDomain
+  const codeReviewRequired = forced ||
+    bool(input.context.diffPresent) ||
+    hasAny(text, [/\bpr\b|merge|branch|diff|code review|код[- ]?ревью|пул реквест/])
+  const finalClaimReviewRequired = forced ||
+    classification.finalClaimGateRequired ||
+    bool(input.context.finalClaimAttempt)
+  const requiredPhases: CrossLlmPhase[] = unique([
+    planReviewRequired ? 'plan_review' : '',
+    codeReviewRequired ? 'code_review' : '',
+    finalClaimReviewRequired ? 'final_claim_review' : '',
+  ]) as CrossLlmPhase[]
+  const optionalPhases: CrossLlmPhase[] = requiredPhases.length === 0 ? ['plan_review'] : []
+  const verdictRefs = splitList(input.context.crossLlmVerdictRefs)
+  const missingVerdicts = requiredPhases.filter((phase) => !verdictRefs.some((ref) => ref.includes(phase)))
+  const boundedPartialClosure = bool(input.context.nextPacketBound) ||
+    bool(input.context.acceptedRiskComplete) ||
+    bool(input.context.acceptedPartialClosure)
+  const hardEnforced = forced ||
+    bool(input.context.finalClaimAttempt) ||
+    bool(input.context.enforceCrossLlm) ||
+    (classification.finalClaimGateRequired && !boundedPartialClosure)
+  const blocks = hardEnforced && missingVerdicts.length > 0
+    ? ['cross_llm_required_verdict_missing']
+    : []
+
+  return {
+    enabled: true,
+    provider: 'claude_code_local',
+    readOnlyByDefault: true,
+    writeAccessAllowed: bool(input.context.crossLlmWriteAccess) && bool(input.context.disjointWriteScope),
+    requiredPhases,
+    optionalPhases,
+    forbiddenWhen: [
+      'simple T0/T1 direct answer with no risk signal',
+      'same write scope as active Codex worker',
+      'missing packet, forbidden scope, or acceptance rows',
+      'secrets/private data would be broadcast to reviewer',
+    ],
+    maxTimeoutMinutes: finalClaimReviewRequired ? 8 : planReviewRequired ? 10 : 3,
+    verdictRefs,
+    missingVerdicts,
+    p10fOutputSchemaRequired: true,
+    blocks,
+    nextAction: blocks.length > 0
+      ? 'Get Claude Code P10F verdict JSON for required phases or downgrade/remove the final claim.'
+      : requiredPhases.length > 0
+        ? 'Run Claude Code as read-only plan/code/final reviewer according to SLA; do not wait on optional phases.'
+        : 'Claude Code is optional and should not add latency to this lightweight task.',
+  }
+}
+
+export function buildEvidenceAggregationArtifact(
+  input: LabInput,
+  classification: ClassificationArtifact,
+  contextRuntime: ContextRuntimeArtifact,
+  splashRadius: SplashRadiusArtifact,
+  crossLlmSla: CrossLlmSlaArtifact,
+): EvidenceAggregationArtifact {
+  const batchCollectorRequired = bool(input.context.p10fBatchCollector) ||
+    tierNumber(classification.complexityTier) >= 3 ||
+    crossLlmSla.requiredPhases.length > 0
+  const runArtifactRefs = [
+    'run.json',
+    'operating-safety.json',
+    'context-runtime.json',
+    'splash-radius.json',
+    'packet-preview.json',
+    'crew-plan.json',
+    'cross-llm-sla.json',
+    'evidence-matrix.json',
+    'execution-state-machine.json',
+  ]
+  const p10fEvidenceLevels = [
+    'response evidence for simple tasks',
+    'adapter artifact for danger/final-claim work',
+    'repair-ledger or GitHub issue for actionable blockers',
+  ]
+  const blocks: string[] = []
+
+  if (bool(input.context.forceMissingEvidenceAggregation)) blocks.push('evidence_aggregation_report_missing')
+
+  return {
+    enabled: true,
+    reportName: 'p10g-runtime-evidence-map',
+    runArtifactRefs: unique([
+      ...runArtifactRefs,
+      ...contextRuntime.ragPackRefs,
+      ...splashRadius.changedScopeRefs,
+      ...crossLlmSla.verdictRefs,
+    ]),
+    p10fEvidenceLevels,
+    fiveAgentReportExpected: batchCollectorRequired,
+    batchCollectorRequired,
+    dashboardReady: !bool(input.context.forceMissingEvidenceAggregation),
+    blocks,
+    nextAction: blocks.length > 0
+      ? 'Write the unified evidence map before final handoff.'
+      : 'Use this artifact as the single place to find five-agent/P10F runtime evidence for the task.',
+  }
+}

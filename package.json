@@ -1,0 +1,17 @@
+{
+  "name": "captain-os",
+  "version": "0.1.0-local-p11a",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "captain-os": "packages/cli/src/index.js"
+  },
+  "scripts": {
+    "doctor": "node packages/cli/src/index.js doctor",
+    "init:dry-run": "node packages/cli/src/index.js init --dry-run",
+    "snapshot:save": "node packages/cli/src/index.js snapshot save",
+    "snapshot:list": "node packages/cli/src/index.js snapshot list",
+    "rollback": "node packages/cli/src/index.js rollback",
+    "test": "node packages/cli/src/index.js doctor"
+  }
+}

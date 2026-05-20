@@ -1,0 +1,20 @@
+{
+  "id": "russian-mixed-prompt-routing",
+  "title": "Russian mixed prompts need intent routing",
+  "task": "Strategy routing case: Anton gives a Russian mixed prompt with frustration, scope, hook, and next action. Separate intent routing before execution so the agent does not answer only the easiest part.",
+  "sourceCase": "docs/process/captain-os-lab/12-frustration-failure-analysis.md#russian-mixed-prompt-routing",
+  "tags": ["strategy_design", "russian", "intent_routing"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T2",
+    "minPlanDepth": "D2",
+    "requiredBlocks": [
+      "missed_russian_intent_routing"
+    ],
+    "requiredSailors": ["Captain", "Context", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "targetObject": "Visible Captain understanding and next action split"
+  }
+}
+

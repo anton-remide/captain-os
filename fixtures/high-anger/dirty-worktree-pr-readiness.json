@@ -1,0 +1,22 @@
+{
+  "id": "dirty-worktree-pr-readiness",
+  "title": "PR readiness requires dirty worktree and review state",
+  "task": "Prepare ready_for_pr on a branch with possible dirty worktree. Do not claim ready until git status, owned/unowned diff map, review state, and CI state are checked.",
+  "sourceCase": "docs/process/captain-os-lab/16-operating-system-readiness-review.md#branch-pr-readiness",
+  "tags": ["bounded_build", "shipping", "pr", "dirty_worktree"],
+  "expected": {
+    "intentMode": "bounded_build",
+    "minComplexityTier": "T2",
+    "minPlanDepth": "D2",
+    "requiredBlocks": [
+      "missing_dirty_worktree_scan",
+      "missing_review_ci_state",
+      "missing_final_claim_evidence"
+    ],
+    "requiredSailors": ["Captain", "QA", "Shipping", "StarPom"]
+  },
+  "context": {
+    "targetObject": "Current branch PR readiness"
+  }
+}
+

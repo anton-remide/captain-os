@@ -1,0 +1,22 @@
+{
+  "id": "span-of-control-overload",
+  "title": "Span of control overload",
+  "task": "Captain OS runtime receives 12 active rows in one task and attempts to keep them directly under Captain without officer lanes. This must require a runtime hierarchy before execution.",
+  "sourceCase": "docs/process/captain-os-lab/38-p0-operating-safety-stop-visual-span.md#span-of-control",
+  "tags": ["operating_safety", "system_refactor", "span_control", "officer_hierarchy"],
+  "expected": {
+    "intentMode": "system_refactor",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "span_of_control_violation",
+      "officer_hierarchy_missing"
+    ],
+    "requiredSailors": ["Captain", "Context", "Knowledge", "QA", "StarPom"]
+  },
+  "context": {
+    "activeRowCount": "12",
+    "officerHierarchyPresent": "false",
+    "acceptanceObject": "officer hierarchy before execution"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "owner-overlap-no-captain-resolution",
+  "title": "Owner overlap without Captain resolution",
+  "task": "Captain OS strategy methodology case: multiple sailors own the same spec and checklist rows, but Captain did not resolve ownership or accountability.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#autonomy-rule",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["sailor_ownership_gap"],
+    "requiredSailors": ["Captain", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "ownerOverlapNoResolution": "true",
+    "acceptanceObject": "Non-overlapping sailor ownership map"
+  }
+}
+

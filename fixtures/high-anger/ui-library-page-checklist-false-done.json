@@ -1,0 +1,29 @@
+{
+  "id": "ui-library-page-checklist-false-done",
+  "title": "UI Library page checklist false done",
+  "task": "Anton requested deep page-by-page UI Library repair with checklist rows for every page. The agent completed a smaller output-surface slice, left unchecked route families in the checklist, and tried to treat the run as done instead of continuing or binding the next packet.",
+  "sourceCase": "docs/reports/2026-05-18-ui-library-output-surface-repair-packet/09-page-execution-checklists.md",
+  "tags": ["diamond_protocol", "research_to_execution", "ui_library", "false_done", "page_checklist"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "broad_done_claim_with_open_work",
+      "partial_done_without_next_packet"
+    ],
+    "requiredSailors": ["Captain", "QA", "StarPom", "Shipping"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "routeChecklistRequired": "true",
+    "routeChecklistPath": "docs/reports/2026-05-18-ui-library-output-surface-repair-packet/09-page-execution-checklists.md",
+    "broadDoneClaim": "true",
+    "nextPacketBound": "false",
+    "finalClaimEvidence": "narrow output-surface slice evidence only",
+    "acceptanceObject": "UI Library page execution checklist closure"
+  }
+}

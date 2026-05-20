@@ -1,0 +1,23 @@
+{
+  "id": "checklist-ledger-green-without-evidence",
+  "title": "Checklist ledger green without evidence",
+  "task": "Captain OS strategy methodology case: checklist rows were marked green, but rows lacked owner, required evidence, blocking flag, or rerun state.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#acceptance-row-contract",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["checklist_row_without_owner_evidence"],
+    "requiredSailors": ["Captain", "QA", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "checklistWithoutEvidence": "true",
+    "acceptanceObject": "Evidence-bound checklist row"
+  }
+}
+

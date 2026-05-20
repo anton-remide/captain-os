@@ -1,0 +1,22 @@
+{
+  "id": "research-findings-not-traced-to-specs",
+  "title": "Research findings not traced to specs",
+  "task": "Captain OS strategy methodology case: judges produced strong findings, but those findings were not traced into artifact specs or acceptance rows.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#distill",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["missing_research_to_spec_trace"],
+    "requiredSailors": ["Captain", "Context", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "false",
+    "executionPlanComplete": "true",
+    "acceptanceObject": "Finding to spec trace"
+  }
+}
+

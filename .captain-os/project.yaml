@@ -1,0 +1,72 @@
+schemaVersion: captain-project.v1
+captainOsVersion: 0.1.0-local-p11a
+mode: shadow
+ownerName: Anton
+projectName: plexo-project
+tracking: REPAIR-20260520-CAPTAIN-DYNAMIC-SETUP
+
+runtimes:
+  strategy: dynamic_session_first  # Капитаном становится модель, которая первая запустила текущую сессию
+  primaryOptions:
+    - gemini-coding
+    - claude-code
+    - codex
+  reviewers:
+    - claude-code
+  optionalJudges:
+    - gemini-coding
+
+readinessCriteria:
+  projectManifest: 20
+  adaptersConfigured: 20
+  ragIndexed: 20
+  ledgerAndFermatActive: 20
+  evidenceGatesLive: 20
+
+sourceOfTruth:
+  strategic: docs
+  actionable: github
+  evidence: local_ship
+
+paths:
+  repairLedger: .ship/repair-ledger.json
+  labRuns: .ship/lab/runs
+  brain: .brain
+  processDocs: docs/process
+  captainOsDocs: docs/process/captain-os-lab
+  productDocs: docs
+  runtimeScripts: scripts/captain-lab
+  ragSources:
+    - src
+    - docs
+
+managedBlocks:
+  - AGENTS.md#captain-os-managed
+  - CLAUDE.md#captain-os-managed
+  - GEMINI.md#captain-os-managed
+
+protectedPaths:
+  - src/**
+  - production/**
+  - .env*
+  - .ship/repair-ledger.json
+  - .brain/**
+
+localRules:
+  language: ru
+  maxCaptainChildren: 5
+  simpleTaskMode: lightweight
+  dangerZones:
+    - direct_user_question
+    - anger_incident
+    - screenshot_visual_acceptance
+    - final_claim
+    - security_public_boundary
+    - accepted_full_claim
+
+evidencePolicy:
+  writeArtifactsToProject: true
+  writeArtifactsToOsRepo: false
+  requireScrubBeforePromotionToCore: true
+  globalBlockingEnabled: false
+  productAcceptedFullAllowed: false

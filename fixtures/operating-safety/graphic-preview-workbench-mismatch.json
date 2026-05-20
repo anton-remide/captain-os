@@ -1,0 +1,29 @@
+{
+  "id": "graphic-preview-workbench-mismatch",
+  "title": "Graphic Preview workbench mismatch",
+  "task": "Anton requested Graphic Previews to be wrapped as the same asset workbench pattern as Decks and Social previews. The agent claimed a technical contract, but the visible workbench wrapper is still missing.",
+  "sourceCase": "docs/process/captain-os-lab/38-p0-operating-safety-stop-visual-span.md#user-request-diff",
+  "tags": ["operating_safety", "visual_acceptance", "ui_library", "workbench_mismatch"],
+  "expected": {
+    "intentMode": "bounded_build",
+    "minComplexityTier": "T2",
+    "minPlanDepth": "D2",
+    "requiredBlocks": [
+      "visible_acceptance_missing",
+      "user_request_result_mismatch"
+    ],
+    "requiredSailors": ["Captain", "Surface", "QA", "StarPom"]
+  },
+  "context": {
+    "testsGreen": "true",
+    "visibleAcceptanceOpen": "true",
+    "visibleAcceptanceObjects": "Graphic Preview asset workbench wrapper",
+    "missingVisibleObjects": "Graphic Preview asset workbench wrapper",
+    "targetSurface": "UI Library Graphic Previews",
+    "expectedVisibleState": "Graphic Previews use the shared asset workbench with stage, controls, and rail behavior",
+    "currentVisibleState": "Graphic Previews still look like prose/cards instead of the shared workbench",
+    "userRequestResultMismatch": "true",
+    "userInspectionObject": "visible Graphic Preview workbench",
+    "agentAcceptanceObject": "data attribute contract on preview frame"
+  }
+}

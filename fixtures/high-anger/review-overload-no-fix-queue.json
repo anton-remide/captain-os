@@ -1,0 +1,21 @@
+{
+  "id": "review-overload-no-fix-queue",
+  "title": "Review overload must become an owner-bound fix queue",
+  "task": "Incident repair for review overload: many findings were left as prose without owner-bound fix queue, severity, status, or closure reason.",
+  "sourceCase": "docs/process/captain-os-lab/16-operating-system-readiness-review.md#review-overload",
+  "tags": ["incident_repair", "review", "fix_queue"],
+  "expected": {
+    "intentMode": "incident_repair",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "review_prose_without_fix_queue",
+      "missing_owner_bound_findings"
+    ],
+    "requiredSailors": ["Captain", "QA", "Context", "Knowledge", "Shipping", "StarPom"]
+  },
+  "context": {
+    "targetObject": "Review finding closure state"
+  }
+}
+

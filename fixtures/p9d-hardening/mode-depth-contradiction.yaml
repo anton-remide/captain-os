@@ -1,0 +1,69 @@
+version: 1
+id: P9D-MODE-DEPTH-CONTRADICTION
+title: Direct answer cannot be D4 full ship cycle
+intentMode: direct_answer
+complexityTier: T0
+planDepth: D4
+captainMode: full_ship_cycle
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+acceptanceObjects: [AO-P9D-MODE]
+requestedObjects: [mode-depth-contract]
+coverageMap:
+  - object: mode-depth-contract
+    status: covered
+    checklistRefs: [CHK-P9D-MODE]
+    owner: Captain
+    reason: Mode-depth object covered.
+sailors:
+  - sailor: Captain
+    owns: [mode]
+    mayDecide: [classification]
+    mustNotChange: [runtime table]
+    mustEscalateIf: [mode depth contradiction]
+    evidenceOwed: [mode_depth_incoherent]
+  - sailor: QA
+    owns: [fixture assertion]
+    mayDecide: [expected block]
+    mustNotChange: [runtime table]
+    mustEscalateIf: [contradiction passes]
+    evidenceOwed: [mode_depth_incoherent]
+  - sailor: StarPom
+    owns: [final claim block]
+    mayDecide: [closure wording]
+    mustNotChange: [accepted-full policy]
+    mustEscalateIf: [contradiction is green]
+    evidenceOwed: [mode_depth_incoherent]
+checklist:
+  - id: CHK-P9D-MODE
+    sourceRequirement: Intent, tier, depth, and captain mode must cohere.
+    owner: QA
+    scope: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+    forbiddenScope: [runtime table drift]
+    acceptanceObject: AO-P9D-MODE
+    userInspectionObject: runtime table
+    agentAcceptanceObject: runtime table
+    acceptanceObjectMatch: true
+    requiredEvidence: [coherence validator]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9D-MODE]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9D-MODE
+    claimId: CHK-P9D-MODE
+    refs:
+      - type: file
+        value: docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

@@ -1,0 +1,56 @@
+version: 1
+id: P9D-NEGATIVE-PROOF-NOT-PROVIDED
+title: Negative proof required but not provided
+intentMode: preserve_and_repair
+complexityTier: T2
+planDepth: D2
+captainMode: bounded_pr
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+acceptanceObjects: [AO-P9D-NEGATIVE]
+sailors:
+  - sailor: Captain
+    owns: [scope]
+    mayDecide: [bounded repair]
+    mustNotChange: [negative proof policy]
+    mustEscalateIf: [forbidden scope not proven untouched]
+    evidenceOwed: [compiled artifacts]
+  - sailor: QA
+    owns: [negative proof]
+    mayDecide: [fixture assertion]
+    mustNotChange: [negative proof validator]
+    mustEscalateIf: [negative proof missing]
+    evidenceOwed: [negative_proof_missing]
+checklist:
+  - id: CHK-P9D-NEGATIVE
+    sourceRequirement: Rows that require negative proof need negative_proof evidence.
+    owner: QA
+    scope: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+    forbiddenScope: [production app files]
+    acceptanceObject: AO-P9D-NEGATIVE
+    userInspectionObject: Negative proof
+    agentAcceptanceObject: Negative proof
+    acceptanceObjectMatch: true
+    requiredEvidence: [negative proof]
+    negativeProofRequired: true
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9D-NEGATIVE]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9D-NEGATIVE
+    claimId: CHK-P9D-NEGATIVE
+    refs:
+      - type: file
+        value: docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

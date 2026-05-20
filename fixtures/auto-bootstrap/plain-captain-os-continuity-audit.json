@@ -1,0 +1,27 @@
+{
+  "id": "plain-captain-os-continuity-audit",
+  "title": "Plain Captain OS continuity audit prompt",
+  "task": "Посмотри, пожалуйста, в этом проекте, как устроена Captain OS для продолжения работы между сессиями. Мне нужно простое read-only заключение: если я завтра открою новую сессию или другой LLM, сможет ли он восстановить контекст задачи из локальных файлов и GitHub, без чтения всей старой переписки? Ничего не редактируй. Просто изучи проект, найди нужные файлы сам, запусти те проверки/evidence-команды, которые считаешь обязательными по правилам проекта, и в конце дай что понял, какие файлы и команды использовал, где лежит evidence, что работает, что рискованно, и следующий шаг.",
+  "sourceCase": "docs/process/captain-os-lab/49-p11f-auto-bootstrap-canary.md#plain-prompt-canary",
+  "tags": ["captain_os_auto_bootstrap", "captain_os_runtime", "read_only_audit", "continuity"],
+  "expected": {
+    "intentMode": "system_refactor",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [],
+    "requiredSailors": ["Captain", "Context", "Runtime", "QA", "Shipping", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "checklistEvidenceComplete": "true",
+    "executionPlanComplete": "true",
+    "radiusArtifact": "true",
+    "affectedSurfaces": "captain_os_runtime",
+    "changedScope": ".captain-os/project.yaml,.captain-os/task-spine.yaml,CLAUDE.md,AGENTS.md,docs/process/captain-os-lab/47-single-lane-deep-work-and-task-spine.md,docs/process/captain-os-lab/48-captain-os-github-backlog-map.md",
+    "acceptanceObject": "Captain OS auto-bootstrap evidence path",
+    "currentState": "Plain user prompt may fall back to legacy cockpit docs without P11 adapter boot.",
+    "targetState": "Plain Captain OS/process/continuation audit prompts load local adapter, task spine, advisory state machine, RAG/context, splash radius, and evidence aggregation automatically."
+  }
+}

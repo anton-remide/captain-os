@@ -1,0 +1,22 @@
+{
+  "id": "deck-geometry-two-source-truth",
+  "title": "Deck geometry cannot keep two competing sources of truth",
+  "task": "Incident repair for a deck geometry drift where manual browser placement and source SVG edits kept fighting each other. Resolve the source-of-truth split before further edits.",
+  "sourceCase": "docs/process/captain-os-lab/14-high-anger-case-studies.md#case-2-stage-pitch-slide-04-geometry-drift",
+  "tags": ["incident_repair", "deck", "source_of_truth", "visual_geometry"],
+  "expected": {
+    "intentMode": "incident_repair",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "missing_source_of_truth_resolution",
+      "two_source_truth_risk"
+    ],
+    "requiredSailors": ["Captain", "Context", "QA", "Knowledge", "Shipping", "StarPom"]
+  },
+  "context": {
+    "sourceObject": "manual browser placement screenshot",
+    "targetObject": "source SVG deck geometry"
+  }
+}
+

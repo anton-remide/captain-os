@@ -1,0 +1,54 @@
+version: 1
+id: P9D-FRESHNESS-SELF-ATTESTED
+title: Current freshness without producedAt/gitRef is self-attested
+intentMode: bounded_build
+complexityTier: T2
+planDepth: D2
+captainMode: mini_packet
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+acceptanceObjects: [AO-P9D-FRESHNESS]
+sailors:
+  - sailor: Captain
+    owns: [scope]
+    mayDecide: [bounded packet]
+    mustNotChange: [freshness policy]
+    mustEscalateIf: [freshness is self-attested]
+    evidenceOwed: [compiled artifacts]
+  - sailor: QA
+    owns: [freshness validation]
+    mayDecide: [fixture assertion]
+    mustNotChange: [freshness validator]
+    mustEscalateIf: [freshness metadata missing]
+    evidenceOwed: [freshness_self_attested]
+checklist:
+  - id: CHK-P9D-FRESHNESS-SELF
+    sourceRequirement: Current evidence needs producedAt and gitRef.
+    owner: QA
+    scope: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+    forbiddenScope: [production app files]
+    acceptanceObject: AO-P9D-FRESHNESS
+    userInspectionObject: Freshness metadata
+    agentAcceptanceObject: Freshness metadata
+    acceptanceObjectMatch: true
+    requiredEvidence: [freshness proof]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9D-FRESHNESS-SELF]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9D-FRESHNESS-SELF
+    claimId: CHK-P9D-FRESHNESS-SELF
+    refs:
+      - type: file
+        value: docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

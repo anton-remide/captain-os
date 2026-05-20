@@ -1,0 +1,60 @@
+version: 1
+id: P9D-VALID-PASS-CONTROL
+title: P9D valid pass control
+intentMode: bounded_build
+complexityTier: T2
+planDepth: D2
+captainMode: mini_packet
+owner: Captain
+sourceDocs:
+  - docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+acceptanceObjects:
+  - AO-P9D-VALID
+sailors:
+  - sailor: Captain
+    owns: [scope]
+    mayDecide: [bounded packet]
+    mustNotChange: [product accepted-full policy]
+    mustEscalateIf: [scope expands]
+    evidenceOwed: [compiled artifacts]
+  - sailor: QA
+    owns: [evidence]
+    mayDecide: [fixture assertion]
+    mustNotChange: [runtime policy]
+    mustEscalateIf: [evidence is weak]
+    evidenceOwed: [executability-validation.json]
+checklist:
+  - id: CHK-P9D-VALID-001
+    sourceRequirement: Valid control row has typed evidence and matching acceptance object.
+    owner: QA
+    scope: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+    forbiddenScope: [production app files]
+    acceptanceObject: AO-P9D-VALID
+    userInspectionObject: P9D valid fixture
+    agentAcceptanceObject: P9D valid fixture
+    acceptanceObjectMatch: true
+    requiredEvidence: [typed file ref]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9D-VALID-001]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9D-VALID-001
+    claimId: CHK-P9D-VALID-001
+    refs:
+      - type: file
+        value: docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+        changedScope:
+          - docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

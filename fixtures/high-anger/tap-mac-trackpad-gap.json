@@ -1,0 +1,22 @@
+{
+  "id": "tap-mac-trackpad-gap",
+  "title": "TAP navigation must prove the actual Mac trackpad modality",
+  "task": "Preserve and repair a TAP article interaction that failed for Anton on a Mac trackpad. Synthetic browser events are not enough evidence for the actual input modality.",
+  "sourceCase": "docs/process/captain-os-lab/14-high-anger-case-studies.md#tap-mac-trackpad-gap",
+  "tags": ["preserve_and_repair", "qa", "input_modality", "mac_trackpad"],
+  "expected": {
+    "intentMode": "preserve_and_repair",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "missing_actual_input_modality",
+      "synthetic_evidence_risk"
+    ],
+    "requiredSailors": ["Captain", "Context", "QA", "StarPom"]
+  },
+  "context": {
+    "acceptedBaseline": "Anton's Mac trackpad interaction path",
+    "userInspectionObject": "Actual scrolling/navigation behavior on Mac"
+  }
+}
+

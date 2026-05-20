@@ -1,0 +1,24 @@
+{
+  "id": "context-broadcast-overload",
+  "title": "Context broadcast overload",
+  "task": "Captain OS runtime broadcasts the full chat history and all source documents to every sailor instead of giving each officer a scoped context packet and budget.",
+  "sourceCase": "docs/process/captain-os-lab/38-p0-operating-safety-stop-visual-span.md#context-budget",
+  "tags": ["operating_safety", "system_refactor", "context_budget"],
+  "expected": {
+    "intentMode": "system_refactor",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "context_budget_violation"
+    ],
+    "requiredSailors": ["Captain", "Context", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "broadcastContext": "true",
+    "officerLanes": "Captain:user intent rows|Context:source docs and freshness|Surface:visible acceptance rows|Runtime:execution plan|StarPom:final claim diff",
+    "allowedContext": "scoped packet only",
+    "forbiddenContext": "full chat history|all docs broadcast|unscoped screenshots",
+    "activeRowCount": "5",
+    "acceptanceObject": "context budget rows"
+  }
+}

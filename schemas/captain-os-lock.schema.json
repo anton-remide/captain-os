@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "captain-os-lock.schema.json",
+  "title": "Captain OS Lockfile",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "captainOsVersion",
+    "mode",
+    "project",
+    "globalBlockingEnabled",
+    "productAcceptedFullAllowed",
+    "managedBlocks",
+    "evidencePaths"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "schemaVersion": { "const": "captain-os-lock.v1" },
+    "captainOsVersion": { "type": "string", "minLength": 1 },
+    "mode": { "type": "string", "enum": ["shadow", "advisory", "selected_blocking"] },
+    "project": { "type": "string", "minLength": 1 },
+    "globalBlockingEnabled": { "const": false },
+    "productAcceptedFullAllowed": { "const": false },
+    "managedBlocks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidencePaths": {
+      "type": "object",
+      "required": ["labRuns", "repairLedger"],
+      "properties": {
+        "labRuns": { "type": "string" },
+        "repairLedger": { "type": "string" }
+      }
+    }
+  }
+}

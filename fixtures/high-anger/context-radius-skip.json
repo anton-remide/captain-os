@@ -1,0 +1,21 @@
+{
+  "id": "context-radius-skip",
+  "title": "Context radius skip must trigger RAG/radius artifact",
+  "task": "System refactor with context radius risk: agent started from nearest file only and skipped RAG, session context, graph, and blast radius before editing a multi-domain workflow.",
+  "sourceCase": "docs/process/captain-os-lab/12-frustration-failure-analysis.md#context-rag-radius-fixture",
+  "tags": ["system_refactor", "context", "rag", "radius"],
+  "expected": {
+    "intentMode": "system_refactor",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "missing_context_radius_artifact",
+      "missing_rag_freshness"
+    ],
+    "requiredSailors": ["Captain", "Context", "Runtime", "QA", "Shipping", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "targetObject": "Multi-domain task context packet"
+  }
+}
+

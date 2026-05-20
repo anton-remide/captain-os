@@ -1,0 +1,53 @@
+version: 1
+id: P9D-EVIDENCE-REF-UNTYPED
+title: Evidence ref is a plain string instead of typed object
+intentMode: bounded_build
+complexityTier: T2
+planDepth: D2
+captainMode: mini_packet
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+acceptanceObjects: [AO-P9D-EVIDENCE]
+sailors:
+  - sailor: Captain
+    owns: [scope]
+    mayDecide: [bounded packet]
+    mustNotChange: [typed evidence policy]
+    mustEscalateIf: [untyped evidence appears]
+    evidenceOwed: [compiled artifacts]
+  - sailor: QA
+    owns: [typed evidence]
+    mayDecide: [fixture assertion]
+    mustNotChange: [typed evidence validator]
+    mustEscalateIf: [plain string evidence passes]
+    evidenceOwed: [evidence_ref_must_be_typed]
+checklist:
+  - id: CHK-P9D-UNTYPED
+    sourceRequirement: Closed rows must use typed evidence refs.
+    owner: QA
+    scope: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+    forbiddenScope: [production app files]
+    acceptanceObject: AO-P9D-EVIDENCE
+    userInspectionObject: typed evidence
+    agentAcceptanceObject: typed evidence
+    acceptanceObjectMatch: true
+    requiredEvidence: [typed evidence ref]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9D-UNTYPED]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9D-UNTYPED
+    claimId: CHK-P9D-UNTYPED
+    refs:
+      - docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

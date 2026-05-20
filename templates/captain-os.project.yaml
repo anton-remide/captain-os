@@ -1,0 +1,14 @@
+schemaVersion: captain-project.v1
+captainOsVersion: 0.1.0-local-p11a
+mode: shadow
+projectName: example
+paths:
+  repairLedger: .ship/repair-ledger.json
+  labRuns: .ship/lab/runs
+  brain: .brain
+  processDocs: docs/process
+evidencePolicy:
+  writeArtifactsToProject: true
+  writeArtifactsToOsRepo: false
+  globalBlockingEnabled: false
+  productAcceptedFullAllowed: false

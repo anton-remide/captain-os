@@ -1,0 +1,20 @@
+{
+  "id": "clean-low-risk-control",
+  "title": "Operating safety clean low-risk control",
+  "task": "Run a narrow low-risk operating-safety control. No direct question, no screenshots, no open visible rows, no broad context broadcast, and no span overload are present.",
+  "sourceCase": "docs/process/captain-os-lab/38-p0-operating-safety-stop-visual-span.md#control",
+  "tags": ["control", "low_risk", "operating_safety"],
+  "expected": {
+    "intentMode": "bounded_build",
+    "minComplexityTier": "T1",
+    "minPlanDepth": "D1",
+    "requiredBlocks": [],
+    "nonBlockingWarnings": [],
+    "requiredSailors": ["Captain"]
+  },
+  "context": {
+    "closedVisibleObjects": "single factual answer",
+    "activeRowCount": "1",
+    "acceptanceObject": "low-risk answer"
+  }
+}

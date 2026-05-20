@@ -1,0 +1,81 @@
+version: 1
+id: P9E-SEMANTIC-NEXT-PACKET-REQUIRED
+title: Open work language requires row-level next-packet mapping
+intentMode: strategy_design
+complexityTier: T3
+planDepth: D3
+captainMode: strategy_packet
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/33-p9b-batch0-judge-reconciliation-and-p9e-hardening.md]
+acceptanceObjects: [open work inventory plus bound next packet]
+requestedObjects: [partial slice closure status]
+coverageMap:
+  - object: partial slice closure status
+    status: covered
+    checklistRefs: [CHK-P9E-NEXT-PACKET]
+    owner: Captain
+    reason: Partial closure is the requested inspection object.
+  - object: open work inventory plus bound next packet
+    status: covered
+    checklistRefs: [CHK-P9E-NEXT-PACKET]
+    owner: Shipping
+    reason: Bound continuation is the acceptance object.
+acceptedRisks: []
+sailors:
+  - sailor: Captain
+    owns: [partial closure]
+    mayDecide: [continue now or next packet]
+    mustNotChange: [no-false-done policy]
+    mustEscalateIf: [open work not mapped]
+    evidenceOwed: [continuation packet]
+  - sailor: Shipping
+    owns: [next packet]
+    mayDecide: [tracking shape]
+    mustNotChange: [row-level mapping policy]
+    mustEscalateIf: [next packet missing]
+    evidenceOwed: [semantic_next_packet_required]
+  - sailor: QA
+    owns: [fixture assertion]
+    mayDecide: [validator status]
+    mustNotChange: [semantic validator]
+    mustEscalateIf: [generic partial closure]
+    evidenceOwed: [semantic_next_packet_required]
+  - sailor: StarPom
+    owns: [false-done block]
+    mayDecide: [closure status]
+    mustNotChange: [accepted_full policy]
+    mustEscalateIf: [open work hidden]
+    evidenceOwed: [blocked closeout]
+checklist:
+  - id: CHK-P9E-NEXT-PACKET
+    sourceRequirement: Partial slice has open work and requires a bound next-packet before any done claim.
+    owner: Shipping
+    scope: [partial slice, open work, next packet]
+    forbiddenScope: [broad done claim]
+    acceptanceObject: open work inventory plus bound next packet
+    userInspectionObject: partial slice closure status
+    agentAcceptanceObject: open work inventory plus bound next packet
+    acceptanceObjectMatch: true
+    requiredEvidence: [advisory-report.json]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9E-NEXT-PACKET]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9E-NEXT-PACKET
+    claimId: CHK-P9E-NEXT-PACKET
+    refs:
+      - type: artifact
+        value: generic advisory artifact
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

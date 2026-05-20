@@ -1,0 +1,81 @@
+version: 1
+id: P9E-SEMANTIC-DATA-CANONICAL-NULL
+title: canonical_name NULL visibility needs query and negative proof
+intentMode: preserve_and_repair
+complexityTier: T3
+planDepth: D3
+captainMode: full_ship_cycle
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/33-p9b-batch0-judge-reconciliation-and-p9e-hardening.md]
+acceptanceObjects: [canonical_name NULL exclusion proof]
+requestedObjects: [frontend-visible entity list and public data routes]
+coverageMap:
+  - object: frontend-visible entity list and public data routes
+    status: covered
+    checklistRefs: [CHK-P9E-DATA-CANONICAL]
+    owner: Runtime
+    reason: Public data visibility is the requested inspection object.
+  - object: canonical_name NULL exclusion proof
+    status: covered
+    checklistRefs: [CHK-P9E-DATA-CANONICAL]
+    owner: QA
+    reason: Query proof is the acceptance object.
+acceptedRisks: []
+sailors:
+  - sailor: Captain
+    owns: [data repair packet]
+    mayDecide: [scope]
+    mustNotChange: [data visibility policy]
+    mustEscalateIf: [query proof missing]
+    evidenceOwed: [data packet]
+  - sailor: Runtime
+    owns: [query proof]
+    mayDecide: [data inspection]
+    mustNotChange: [public visibility rules]
+    mustEscalateIf: [canonical_name NULL visible]
+    evidenceOwed: [SQL/query proof]
+  - sailor: QA
+    owns: [negative proof]
+    mayDecide: [fixture assertion]
+    mustNotChange: [semantic validator]
+    mustEscalateIf: [proof object is generic]
+    evidenceOwed: [canonical_null_public_visibility_query_required]
+  - sailor: StarPom
+    owns: [final claim block]
+    mayDecide: [closure status]
+    mustNotChange: [accepted_full policy]
+    mustEscalateIf: [query proof missing]
+    evidenceOwed: [blocked closeout]
+checklist:
+  - id: CHK-P9E-DATA-CANONICAL
+    sourceRequirement: Entities with canonical_name = NULL must not be frontend-visible; acceptance needs SQL/query proof and public visibility negative proof.
+    owner: QA
+    scope: [data, public routes, canonical_name NULL]
+    forbiddenScope: [generic baseline substitution]
+    acceptanceObject: canonical_name NULL exclusion proof
+    userInspectionObject: frontend-visible entity list and public data routes
+    agentAcceptanceObject: canonical_name NULL exclusion proof
+    acceptanceObjectMatch: true
+    requiredEvidence: [advisory-report.json]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9E-DATA-CANONICAL]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9E-DATA-CANONICAL
+    claimId: CHK-P9E-DATA-CANONICAL
+    refs:
+      - type: artifact
+        value: generic advisory artifact
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

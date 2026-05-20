@@ -1,0 +1,24 @@
+{
+  "id": "accepted-risk-no-expiry",
+  "title": "Accepted risk without expiry",
+  "task": "Captain OS strategy methodology case: accepted risk is used to close missing evidence, but it has no owner, consequence, expiry, tracking, or compensating control.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#accepted-risk-rule",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["accepted_risk_without_controls"],
+    "requiredSailors": ["Captain", "QA", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "acceptedRiskPresent": "true",
+    "acceptedRiskComplete": "false",
+    "acceptanceObject": "Controlled accepted-risk record"
+  }
+}
+

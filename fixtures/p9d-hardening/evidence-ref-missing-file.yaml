@@ -1,0 +1,57 @@
+version: 1
+id: P9D-EVIDENCE-REF-MISSING-FILE
+title: Evidence ref points to a missing file artifact
+intentMode: bounded_build
+complexityTier: T2
+planDepth: D2
+captainMode: mini_packet
+owner: Captain
+sourceDocs:
+  - docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+acceptanceObjects: [AO-P9D-EVIDENCE]
+sailors:
+  - sailor: Captain
+    owns: [scope]
+    mayDecide: [bounded packet]
+    mustNotChange: [runtime policy]
+    mustEscalateIf: [artifact is missing]
+    evidenceOwed: [compiled artifacts]
+  - sailor: QA
+    owns: [evidence existence]
+    mayDecide: [fixture assertion]
+    mustNotChange: [artifact resolver]
+    mustEscalateIf: [artifact missing]
+    evidenceOwed: [evidence_ref_artifact_missing]
+checklist:
+  - id: CHK-P9D-MISSING-FILE
+    sourceRequirement: Closed rows cannot cite missing file artifacts.
+    owner: QA
+    scope: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+    forbiddenScope: [production app files]
+    acceptanceObject: AO-P9D-EVIDENCE
+    userInspectionObject: Missing file fixture
+    agentAcceptanceObject: Missing file fixture
+    acceptanceObjectMatch: true
+    requiredEvidence: [existing file evidence]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9D-MISSING-FILE]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9D-MISSING-FILE
+    claimId: CHK-P9D-MISSING-FILE
+    refs:
+      - type: file
+        value: docs/process/captain-os-lab/missing-evidence-artifact-does-not-exist.txt
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

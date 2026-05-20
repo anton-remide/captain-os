@@ -1,0 +1,56 @@
+version: 1
+id: P9D-VAGUE-SCOPE
+title: Scope is too vague for execution
+intentMode: bounded_build
+complexityTier: T2
+planDepth: D2
+captainMode: mini_packet
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+acceptanceObjects: [AO-P9D-SCOPE]
+sailors:
+  - sailor: Captain
+    owns: [scope]
+    mayDecide: [bounded packet]
+    mustNotChange: [scope policy]
+    mustEscalateIf: [scope vague]
+    evidenceOwed: [typed_scope_required]
+  - sailor: QA
+    owns: [scope validation]
+    mayDecide: [fixture assertion]
+    mustNotChange: [scope validator]
+    mustEscalateIf: [vague scope passes]
+    evidenceOwed: [typed_scope_required]
+checklist:
+  - id: CHK-P9D-SCOPE
+    sourceRequirement: T2 rows need concrete typed scope.
+    owner: QA
+    scope: [the app]
+    forbiddenScope: []
+    acceptanceObject: AO-P9D-SCOPE
+    userInspectionObject: scope row
+    agentAcceptanceObject: scope row
+    acceptanceObjectMatch: true
+    requiredEvidence: [typed scope]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9D-SCOPE]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9D-SCOPE
+    claimId: CHK-P9D-SCOPE
+    refs:
+      - type: file
+        value: docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

@@ -1,0 +1,56 @@
+version: 1
+id: P9D-SAILOR-EMPTY-OWNERSHIP
+title: Sailor exists but ownership envelope is empty
+intentMode: bounded_build
+complexityTier: T2
+planDepth: D2
+captainMode: mini_packet
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+acceptanceObjects: [AO-P9D-SAILOR]
+sailors:
+  - sailor: Captain
+    owns: []
+    mayDecide: []
+    mustNotChange: []
+    mustEscalateIf: []
+    evidenceOwed: []
+  - sailor: QA
+    owns: [fixture assertion]
+    mayDecide: [expected block]
+    mustNotChange: [ownership policy]
+    mustEscalateIf: [empty ownership passes]
+    evidenceOwed: [sailor_ownership_empty]
+checklist:
+  - id: CHK-P9D-SAILOR-EMPTY
+    sourceRequirement: Sailor ownership must not be syntactic only.
+    owner: QA
+    scope: [docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md]
+    forbiddenScope: [production app files]
+    acceptanceObject: AO-P9D-SAILOR
+    userInspectionObject: sailor envelope
+    agentAcceptanceObject: sailor envelope
+    acceptanceObjectMatch: true
+    requiredEvidence: [ownership envelope]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9D-SAILOR-EMPTY]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9D-SAILOR-EMPTY
+    claimId: CHK-P9D-SAILOR-EMPTY
+    refs:
+      - type: file
+        value: docs/process/captain-os-lab/31-p9d-executability-failure-hardening.md
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

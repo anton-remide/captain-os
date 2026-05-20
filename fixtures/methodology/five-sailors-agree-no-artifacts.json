@@ -1,0 +1,23 @@
+{
+  "id": "five-sailors-agree-no-artifacts",
+  "title": "Five sailors agree without artifacts",
+  "task": "Captain OS strategy methodology case: five independent sailors agree in prose, but no sailor returns an artifact, path, diff, or evidence note.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#execute",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["sailor_verdict_without_artifact"],
+    "requiredSailors": ["Captain", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "sailorVerdictNoArtifact": "true",
+    "acceptanceObject": "Artifact-bound sailor verdict"
+  }
+}
+

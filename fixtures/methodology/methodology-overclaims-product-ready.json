@@ -1,0 +1,23 @@
+{
+  "id": "methodology-overclaims-product-ready",
+  "title": "Methodology ready overclaimed as product ready",
+  "task": "Captain OS strategy methodology case: the process, research, or specs are ready_for_execution, but the agent claims product accepted_full or result ready without implementation evidence.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#starpom-blocks",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["methodology_overclaims_product"],
+    "requiredSailors": ["Captain", "QA", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "methodologyOverclaimsProduct": "true",
+    "acceptanceObject": "Separated methodology and product closure status"
+  }
+}
+

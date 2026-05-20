@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "captain-os-lock.v1",
+  "captainOsVersion": "0.1.0-local-p11a",
+  "mode": "shadow",
+  "globalBlockingEnabled": false,
+  "productAcceptedFullAllowed": false
+}

@@ -1,0 +1,25 @@
+{
+  "id": "transfer-costs-copy-exact",
+  "title": "Transfer Costs must copy Entities one-to-one",
+  "task": "Anton says: copy the existing Entities table and map one-to-one into Transfer Costs. Do not invent a different map, blocks, controls, layout, or table behavior. The prior agent treated copy_exact as a new data surface and claimed route/render readiness.",
+  "sourceCase": "docs/process/captain-os-lab/14-high-anger-case-studies.md#case-1-transfer-costs-false-green",
+  "tags": ["copy_exact", "surface", "false_green", "transfer_costs", "entities"],
+  "expected": {
+    "intentMode": "copy_exact",
+    "minComplexityTier": "T2",
+    "minPlanDepth": "D2",
+    "requiredBlocks": [
+      "missing_source_target_map",
+      "missing_golden_comparison",
+      "acceptance_object_mismatch_risk"
+    ],
+    "requiredSailors": ["Captain", "Surface", "QA", "Context"]
+  },
+  "context": {
+    "sourceObject": "Entities table/map pattern",
+    "targetObject": "Transfer Costs table/map pattern",
+    "acceptedBaseline": "Existing Entities surface",
+    "visibleResult": "Transfer Costs must visibly match the Entities information architecture"
+  }
+}
+

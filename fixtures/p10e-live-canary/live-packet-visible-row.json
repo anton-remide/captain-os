@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "taskId": "p10e-live-visible-row-probe",
+  "domain": "ui_visual",
+  "gate": "pre_final_claim",
+  "userIntent": "Remove the FORMATS rail block and prove it is gone visually.",
+  "currentAgentClaim": "Tests pass and the UI is done.",
+  "acceptanceRows": [
+    {
+      "id": "row-001",
+      "visibleObject": "FORMATS rail block",
+      "expectedState": "not rendered",
+      "currentState": "still visible",
+      "evidenceRequired": ["fresh screenshot"],
+      "ownerLane": "UI Officer",
+      "blockingRuleRefs": ["visible_acceptance_missing"],
+      "status": "open"
+    }
+  ],
+  "context": {
+    "testsGreen": true
+  }
+}

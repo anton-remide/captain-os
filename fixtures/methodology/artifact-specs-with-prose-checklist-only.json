@@ -1,0 +1,23 @@
+{
+  "id": "artifact-specs-with-prose-checklist-only",
+  "title": "Artifact specs with prose checklist only",
+  "task": "Captain OS strategy methodology case: artifact specs exist, but the checklist is prose like reviewed, improved, looks good, and has no acceptance matrix.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#acceptance-row-contract",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": ["artifact_spec_without_acceptance_matrix"],
+    "requiredSailors": ["Captain", "QA", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "proseChecklistOnly": "true",
+    "acceptanceObject": "Artifact spec acceptance matrix"
+  }
+}
+

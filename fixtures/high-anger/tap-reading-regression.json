@@ -1,0 +1,22 @@
+{
+  "id": "tap-reading-regression",
+  "title": "TAP reading experience regression must preserve prior accepted behavior",
+  "task": "Preserve and repair the TAP reading experience after a regression. The runner must not accept a fix until the prior accepted interaction baseline is named and rerun.",
+  "sourceCase": "docs/process/captain-os-lab/14-high-anger-case-studies.md#tap-reading-regression",
+  "tags": ["preserve_and_repair", "reading_system", "regression"],
+  "expected": {
+    "intentMode": "preserve_and_repair",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "missing_prior_interaction_baseline",
+      "missing_regression_proof"
+    ],
+    "requiredSailors": ["Captain", "Context", "QA", "StarPom"]
+  },
+  "context": {
+    "sourceObject": "Prior accepted TAP reading interaction",
+    "targetObject": "Current TAP reading interaction"
+  }
+}
+

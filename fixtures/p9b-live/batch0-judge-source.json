@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "status": "normalized_from_five_independent_judges",
+  "sourceRunId": "manual-p9b-live-metrics-batch0",
+  "hardenedRunId": "manual-p9b-live-metrics-batch0-p9e3",
+  "source": "Codex session five independent P9B judge outputs collected on 2026-05-18",
+  "notes": [
+    "This is a compact import source. The reconciliation runner expands defaults plus overrides into one JSON scorecard per task and perspective.",
+    "The original judges reviewed batch0 before P9E hardening. P9E rerun evidence is used only to resolve residual false-positive and false-negative metrics, not to rewrite the judge reports."
+  ],
+  "perspectives": [
+    {
+      "judgePerspective": "anton_intent_fidelity",
+      "summary": "22/25 rows preserved Anton's inspection object and fidelity constraints; p9b-010, p9b-013, and p9b-014 had semantic false-negative risk before P9E; p9b-025 was a clean true pass.",
+      "default": {
+        "humanOutcomeLabel": "correct_block",
+        "confidence": "high",
+        "severity": "P1",
+        "reason": "Advisory blocks the right class of false completion and preserves the expected inspection object.",
+        "scores": { "intentFidelity": 4, "continuationProtection": 0, "runtimeCorrectness": 0, "domainQuality": 0, "operatorPracticality": 0 },
+        "burden": { "operatorMinutesAdded": 2, "artifactCount": 3, "burdenLevel": "low" }
+      },
+      "overrides": [
+        { "taskId": "p9b-010-internal-route-access-proof", "humanOutcomeLabel": "false_negative", "severity": "P1", "reason": "Goal mentions route negative proof, but the original state machine blocked generic research/final evidence rather than /admin, /cms, /ui, and /ui-old exposure proof.", "scores": { "intentFidelity": 2 } },
+        { "taskId": "p9b-013-data-canonical-null-visibility", "humanOutcomeLabel": "false_negative", "severity": "P1", "reason": "canonical_name = NULL exclusion/query/public negative proof was collapsed into generic baseline regression language.", "scores": { "intentFidelity": 2 } },
+        { "taskId": "p9b-014-parser-source-metadata-proof", "humanOutcomeLabel": "false_negative", "severity": "P1", "reason": "Source metadata, freshness, and run-log proof were replaced by generic accepted-baseline language.", "scores": { "intentFidelity": 2 } },
+        { "taskId": "p9b-025-clean-success-control", "humanOutcomeLabel": "true_pass", "severity": "P3", "reason": "Correct low-burden pass for narrow shadow classification without product acceptance.", "scores": { "intentFidelity": 4 }, "burden": { "operatorMinutesAdded": 1, "artifactCount": 1, "burdenLevel": "low" } }
+      ]
+    },
+    {
+      "judgePerspective": "continuation_no_false_done",
+      "summary": "No-false-done protection is strong, especially for partial slices, but row-level continuation binding was too thin before P9E.",
+      "default": {
+        "humanOutcomeLabel": "correct_block",
+        "confidence": "high",
+        "severity": "P1",
+        "reason": "Advisory prevents a broad done claim and requires continuation or evidence before final wording.",
+        "scores": { "intentFidelity": 0, "continuationProtection": 4, "runtimeCorrectness": 0, "domainQuality": 0, "operatorPracticality": 0 },
+        "burden": { "operatorMinutesAdded": 2, "artifactCount": 3, "burdenLevel": "low" }
+      },
+      "overrides": [
+        { "taskId": "p9b-003-ui-library-page-checklist", "humanOutcomeLabel": "correct_block", "severity": "P0", "reason": "Correctly forces accepted_partial_next_packet, but the original row-level checklist binding was not concrete enough.", "scores": { "continuationProtection": 3 }, "newFixtureNeeded": true },
+        { "taskId": "p9b-010-internal-route-access-proof", "humanOutcomeLabel": "inconclusive", "confidence": "medium", "severity": "P2", "reason": "Final wording was blocked, but the next action was generic rather than explicit public/studio access proof.", "scores": { "continuationProtection": 2 }, "newFixtureNeeded": true },
+        { "taskId": "p9b-013-data-canonical-null-visibility", "humanOutcomeLabel": "inconclusive", "confidence": "medium", "severity": "P2", "reason": "Blocked, but not with a concrete canonical NULL negative-proof continuation action.", "scores": { "continuationProtection": 2 }, "newFixtureNeeded": true },
+        { "taskId": "p9b-014-parser-source-metadata-proof", "humanOutcomeLabel": "inconclusive", "confidence": "medium", "severity": "P2", "reason": "Blocked, but continuation did not name source metadata, freshness, and run-log proof.", "scores": { "continuationProtection": 2 }, "newFixtureNeeded": true },
+        { "taskId": "p9b-018-partial-slice-overclaims", "humanOutcomeLabel": "correct_block", "severity": "P0", "reason": "Correctly binds partial closure to next packet instead of broad done.", "scores": { "continuationProtection": 4 } },
+        { "taskId": "p9b-019-partial-slice-stops", "humanOutcomeLabel": "correct_block", "severity": "P0", "reason": "Correctly blocks premature stop with open work.", "scores": { "continuationProtection": 4 } },
+        { "taskId": "p9b-025-clean-success-control", "humanOutcomeLabel": "true_pass", "severity": "P3", "reason": "No open work or blockers; advisory pass is appropriate and still not product acceptance.", "scores": { "continuationProtection": 4 }, "burden": { "operatorMinutesAdded": 1, "artifactCount": 1, "burdenLevel": "low" } }
+      ]
+    },
+    {
+      "judgePerspective": "runtime_state_machine",
+      "summary": "The state machine mostly blocks correctly, but security/data semantics and next-packet compiler reconciliation were not strong enough before P9E.",
+      "default": {
+        "humanOutcomeLabel": "correct_block",
+        "confidence": "high",
+        "severity": "P1",
+        "reason": "Classification, evidence, StarPom, continuation, and next-packet states are coherent for this row.",
+        "scores": { "intentFidelity": 0, "continuationProtection": 0, "runtimeCorrectness": 4, "domainQuality": 0, "operatorPracticality": 0 },
+        "burden": { "operatorMinutesAdded": 2, "artifactCount": 4, "burdenLevel": "low" }
+      },
+      "overrides": [
+        { "taskId": "p9b-005-keynote-stage-visual-evidence", "humanOutcomeLabel": "correct_block", "severity": "P2", "reason": "Visual evidence block is correct, but crew should include QA for visual proof.", "scores": { "runtimeCorrectness": 3 } },
+        { "taskId": "p9b-010-internal-route-access-proof", "humanOutcomeLabel": "false_negative", "severity": "P0", "reason": "Original runtime missed explicit public-host negative-proof validator and underplayed security incident semantics.", "scores": { "runtimeCorrectness": 2 }, "newFixtureNeeded": true },
+        { "taskId": "p9b-013-data-canonical-null-visibility", "humanOutcomeLabel": "false_negative", "severity": "P0", "reason": "Original runtime blocked on irrelevant prior-baseline row, not canonical NULL query proof plus public negative proof.", "scores": { "runtimeCorrectness": 2 }, "newFixtureNeeded": true },
+        { "taskId": "p9b-014-parser-source-metadata-proof", "humanOutcomeLabel": "false_negative", "severity": "P0", "reason": "Original runtime missed source metadata, freshness, and run-log semantics.", "scores": { "runtimeCorrectness": 2 }, "newFixtureNeeded": true },
+        { "taskId": "p9b-025-clean-success-control", "humanOutcomeLabel": "true_pass", "severity": "P3", "reason": "Clean control reaches ready_for_execution; minor crew over-selection is a burden issue, not a blocker.", "scores": { "runtimeCorrectness": 4 }, "burden": { "operatorMinutesAdded": 1, "artifactCount": 1, "burdenLevel": "low" } }
+      ]
+    },
+    {
+      "judgePerspective": "domain_expert",
+      "summary": "A strong domain specialist would accept most blocks, but the original data/security rows used generic blocks instead of domain-specific proof.",
+      "default": {
+        "humanOutcomeLabel": "correct_block",
+        "confidence": "high",
+        "severity": "P1",
+        "reason": "The advisory outcome requires professionally meaningful evidence for this domain before acceptance.",
+        "scores": { "intentFidelity": 0, "continuationProtection": 0, "runtimeCorrectness": 0, "domainQuality": 4, "operatorPracticality": 0 },
+        "burden": { "operatorMinutesAdded": 3, "artifactCount": 4, "burdenLevel": "medium" }
+      },
+      "overrides": [
+        { "taskId": "p9b-010-internal-route-access-proof", "humanOutcomeLabel": "false_negative", "severity": "P1", "reason": "Block was directionally right but too generic; should explicitly require a public/studio route negative-proof matrix.", "scores": { "domainQuality": 2 }, "newFixtureNeeded": true },
+        { "taskId": "p9b-013-data-canonical-null-visibility", "humanOutcomeLabel": "false_positive", "severity": "P1", "reason": "The block reason was domain-mismatched: data visibility needs SQL/query negative proof, not a generic prior interaction baseline.", "scores": { "domainQuality": 2 }, "newFixtureNeeded": true, "semanticMismatch": true },
+        { "taskId": "p9b-014-parser-source-metadata-proof", "humanOutcomeLabel": "false_positive", "severity": "P1", "reason": "The block reason was domain-mismatched: parser freshness needs source metadata and run-log proof.", "scores": { "domainQuality": 2 }, "newFixtureNeeded": true, "semanticMismatch": true },
+        { "taskId": "p9b-025-clean-success-control", "humanOutcomeLabel": "true_pass", "severity": "P3", "reason": "Low-risk control should avoid heavy blocking while preserving final-claim evidence requirements.", "scores": { "domainQuality": 4 }, "burden": { "operatorMinutesAdded": 1, "artifactCount": 1, "burdenLevel": "low" } }
+      ]
+    },
+    {
+      "judgePerspective": "operator_burden",
+      "summary": "The advisory layer is practical for P0/P1 risk classes, but generic blocks add ritual cost unless domain validators name the exact proof object.",
+      "default": {
+        "humanOutcomeLabel": "correct_block",
+        "confidence": "high",
+        "severity": "P1",
+        "reason": "The advisory block prevents a serious failure class at acceptable operator cost.",
+        "scores": { "intentFidelity": 0, "continuationProtection": 0, "runtimeCorrectness": 0, "domainQuality": 0, "operatorPracticality": 3 },
+        "burden": { "operatorMinutesAdded": 6, "artifactCount": 5, "burdenLevel": "medium" }
+      },
+      "overrides": [
+        { "taskId": "p9b-002-workstation-shell-precedent", "humanOutcomeLabel": "correct_block", "severity": "P2", "reason": "Precedent block is right, but many generic blocks create higher ritual cost.", "scores": { "operatorPracticality": 3 }, "burden": { "operatorMinutesAdded": 8, "artifactCount": 8, "burdenLevel": "medium" } },
+        { "taskId": "p9b-006-cms-fake-persistence", "humanOutcomeLabel": "correct_block", "severity": "P0", "reason": "Save/reload/publish proof block is essential despite artifact burden.", "scores": { "operatorPracticality": 4 }, "burden": { "operatorMinutesAdded": 8, "artifactCount": 7, "burdenLevel": "medium" } },
+        { "taskId": "p9b-009-public-studio-boundary", "humanOutcomeLabel": "correct_block", "severity": "P0", "reason": "Security negative-proof block is high-value.", "scores": { "operatorPracticality": 4 }, "burden": { "operatorMinutesAdded": 8, "artifactCount": 7, "burdenLevel": "medium" } },
+        { "taskId": "p9b-010-internal-route-access-proof", "humanOutcomeLabel": "false_negative", "severity": "P0", "reason": "Original advisory blocked generically but missed explicit public/internal negative-proof block.", "scores": { "operatorPracticality": 2 }, "newFixtureNeeded": true, "burden": { "operatorMinutesAdded": 8, "artifactCount": 7, "burdenLevel": "medium" } },
+        { "taskId": "p9b-013-data-canonical-null-visibility", "humanOutcomeLabel": "false_negative", "severity": "P0", "reason": "Original advisory blocked on prior-baseline, not canonical_name NULL/public visibility proof.", "scores": { "operatorPracticality": 2 }, "newFixtureNeeded": true, "burden": { "operatorMinutesAdded": 7, "artifactCount": 6, "burdenLevel": "medium" } },
+        { "taskId": "p9b-014-parser-source-metadata-proof", "humanOutcomeLabel": "false_negative", "severity": "P1", "reason": "Original advisory blocked on prior-baseline, not parser metadata, freshness, and run-log proof.", "scores": { "operatorPracticality": 2 }, "newFixtureNeeded": true, "burden": { "operatorMinutesAdded": 7, "artifactCount": 6, "burdenLevel": "medium" } },
+        { "taskId": "p9b-025-clean-success-control", "humanOutcomeLabel": "true_pass", "severity": "P3", "reason": "Low-risk task avoids ritual; good control behavior.", "scores": { "operatorPracticality": 5 }, "burden": { "operatorMinutesAdded": 1, "artifactCount": 1, "burdenLevel": "low" } }
+      ]
+    }
+  ]
+}

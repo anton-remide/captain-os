@@ -1,0 +1,23 @@
+{
+  "id": "tap-inline-sources",
+  "title": "TAP inline sources must be preserved paragraph by paragraph",
+  "task": "Repair the TAP Protocol article while preserving Notion inline sources. The earlier run restored references globally, but a paragraph that had several source links lost them in the rendered article.",
+  "sourceCase": "docs/process/captain-os-lab/14-high-anger-case-studies.md#case-3-tap-inline-sources-lost",
+  "tags": ["preserve_and_repair", "cms", "notion", "source_fidelity"],
+  "expected": {
+    "intentMode": "preserve_and_repair",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "missing_paragraph_source_fidelity",
+      "missing_source_diff"
+    ],
+    "requiredSailors": ["Captain", "CMS", "Context", "QA", "StarPom"]
+  },
+  "context": {
+    "acceptedBaseline": "Notion paragraph-level inline source links",
+    "sourceObject": "Notion TAP Protocol source paragraph",
+    "targetObject": "Rendered TAP Protocol article paragraph"
+  }
+}
+

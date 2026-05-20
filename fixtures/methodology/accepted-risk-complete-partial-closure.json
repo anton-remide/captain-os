@@ -1,0 +1,27 @@
+{
+  "id": "accepted-risk-complete-partial-closure",
+  "title": "Complete accepted risk permits partial closure only",
+  "task": "Captain OS strategy methodology control: accepted risk has owner, consequence, expiry, tracking, compensating control, and explicit claim limits; it permits partial closure only, not accepted_full.",
+  "sourceCase": "docs/process/captain-os-lab/26-diamond-research-to-execution-protocol.md#accepted-risk-rule",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [],
+    "nonBlockingWarnings": [],
+    "requiredSailors": ["Captain", "QA", "StarPom"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "checklistEvidenceComplete": "true",
+    "rerunComplete": "true",
+    "finalClaimEvidence": "partial closure evidence only",
+    "acceptedRiskPresent": "true",
+    "acceptedRiskComplete": "true",
+    "acceptanceObject": "Controlled accepted-risk partial closure"
+  }
+}

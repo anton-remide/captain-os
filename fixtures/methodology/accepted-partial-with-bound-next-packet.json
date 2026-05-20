@@ -1,0 +1,29 @@
+{
+  "id": "accepted-partial-with-bound-next-packet",
+  "title": "Accepted partial with bound next packet",
+  "task": "Captain OS methodology control: the agent closes a useful slice, names every open row, binds the remainder to a next packet, and avoids any full done claim.",
+  "sourceCase": "docs/process/captain-os-lab/27-no-false-done-and-autonomous-continuation.md#open-work-inventory",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [],
+    "requiredSailors": ["Captain", "QA", "StarPom", "Shipping"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "checklistEvidenceComplete": "true",
+    "openWorkRemaining": "true",
+    "openWorkInventoryComplete": "true",
+    "broadDoneClaim": "false",
+    "nextPacketBound": "true",
+    "agentStopped": "true",
+    "stopConditionRecorded": "true",
+    "finalClaimEvidence": "scoped partial evidence and next packet",
+    "acceptanceObject": "Accepted partial closure with next packet"
+  }
+}

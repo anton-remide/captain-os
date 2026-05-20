@@ -1,0 +1,24 @@
+{
+  "id": "workstation-shell-precedent",
+  "title": "Workstation shell changes must copy the canonical precedent",
+  "task": "Copy the canonical WorkstationFrame shell precedent exactly for the internal workstation. Do not invent page-local shell math, duplicate search, duplicate rails, or black-pill left rail active states.",
+  "sourceCase": "docs/process/captain-os-lab/16-operating-system-readiness-review.md#workstation-shell",
+  "tags": ["copy_exact", "workstation", "ui_library", "precedent"],
+  "expected": {
+    "intentMode": "copy_exact",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "missing_precedent_map",
+      "missing_forbidden_scope",
+      "missing_golden_comparison"
+    ],
+    "requiredSailors": ["Captain", "Surface", "Context", "QA", "StarPom"]
+  },
+  "context": {
+    "sourceObject": "Canonical WorkstationFrame",
+    "targetObject": "Touched internal workstation surface",
+    "acceptedBaseline": "UI Library workstation shell canon"
+  }
+}
+

@@ -1,0 +1,1087 @@
+{
+  "schemaVersion": 1,
+  "id": "P10E-LIVE-CANARY-CORPUS-20260518-LAST24",
+  "status": "frozen",
+  "sourceWindow": {
+    "from": "2026-05-17T17:05:35.000Z",
+    "to": "2026-05-18T17:05:35.000Z",
+    "userMessagesRead": 167,
+    "uniqueUserMessagesUsed": 34,
+    "excluded": [
+      "subagent CAPTAIN_AGENT_PACKET prompts",
+      "assistant answers",
+      "model reasoning",
+      "tool output",
+      "duplicate forked thread messages"
+    ]
+  },
+  "p10dPrerequisiteRun": ".ship/lab/runs/manual-p10d-global-enablement-canary",
+  "selectedRules": [
+    "stop_and_answer_required",
+    "visible_acceptance_missing",
+    "user_request_result_mismatch",
+    "span_of_control_violation",
+    "context_budget_violation",
+    "semantic_next_packet_required",
+    "negative_proof_missing"
+  ],
+  "scope": [
+    "ui_visual",
+    "diagrams_seo",
+    "data_product",
+    "captain_os",
+    "delivery_ops",
+    "control"
+  ],
+  "tasks": [
+    {
+      "taskId": "p10e-ui-001-social-right-rail-regression",
+      "domain": "ui_visual",
+      "taskType": "visual_repair",
+      "userIntent": "Restore the right studio controls and black preview frame that existed before the UI Library repair.",
+      "painPoint": "Agent claimed UI repair while removing the exact right rail controls Anton needed to operate the surface.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:21:12.844Z",
+          "thread": "Captain OS",
+          "excerpt": "справа у меня было ... меню управления шрифтами, цветами и типами блоков. Сейчас этого нету"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-ui-001-a",
+          "visibleObject": "Social carousel right studio rail",
+          "expectedState": "Font, Palette, Frame, and Type controls are visible, usable, and not replaced by abstract contract-only proof.",
+          "evidenceRequired": [
+            "fresh screenshot of the affected route",
+            "DOM or smoke evidence that rail controls render",
+            "explicit before/after note for restored controls"
+          ],
+          "ownerLane": "Surface officer",
+          "blockingRuleRefs": [
+            "visible_acceptance_missing",
+            "user_request_result_mismatch"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "visible_acceptance_missing",
+        "user_request_result_mismatch"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 6,
+      "expectedNextAction": "Block final done claim until the exact visible rail is restored and evidenced."
+    },
+    {
+      "taskId": "p10e-ui-002-formats-rail-direct-question",
+      "domain": "ui_visual",
+      "taskType": "visual_repair",
+      "userIntent": "Answer why the marked FORMATS left-rail block was not removed before doing more edits.",
+      "painPoint": "The agent kept editing instead of answering a direct accountability question tied to a marked screenshot object.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:21:12.844Z",
+          "thread": "Captain OS",
+          "excerpt": "На первом скриншоте я просил эту часть удалить. Какого хуя ты её не удалил?"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-ui-002-a",
+          "visibleObject": "FORMATS block in left rail",
+          "expectedState": "Direct answer is given first; no edits or done claim happen before the answer.",
+          "evidenceRequired": [
+            "answer-first transcript marker",
+            "screenshot or DOM proof after removal if work continues"
+          ],
+          "ownerLane": "Captain",
+          "blockingRuleRefs": [
+            "stop_and_answer_required",
+            "visible_acceptance_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "stop_and_answer_required",
+        "visible_acceptance_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 4,
+      "expectedNextAction": "Block action-first behavior; answer the direct question before any repair."
+    },
+    {
+      "taskId": "p10e-ui-003-graphic-preview-workbench-mismatch",
+      "domain": "ui_visual",
+      "taskType": "visual_repair",
+      "userIntent": "Wrap Graphic Previews assets in the same workbench pattern used by Deck/Social asset previews.",
+      "painPoint": "The agent treated data attributes as completion while the visible workbench was still missing.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:21:12.844Z",
+          "thread": "Captain OS",
+          "excerpt": "обернуть, чтобы ... с этими ассетами я мог работать точно так же, как с декой"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-ui-003-a",
+          "visibleObject": "Graphic Previews asset workbench",
+          "expectedState": "Graphic Preview page has stage, rail, toolbar, scaling, and controls matching the canonical asset preview workbench.",
+          "evidenceRequired": [
+            "fresh screenshot of Graphic Preview route",
+            "route checklist proving stage/rail/toolbar",
+            "StarPom object-match note"
+          ],
+          "ownerLane": "Surface officer",
+          "blockingRuleRefs": [
+            "visible_acceptance_missing",
+            "user_request_result_mismatch"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "visible_acceptance_missing",
+        "user_request_result_mismatch"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 7,
+      "expectedNextAction": "Block contract-only closure; require visible workbench evidence."
+    },
+    {
+      "taskId": "p10e-ui-004-page-checklists-before-page-work",
+      "domain": "ui_visual",
+      "taskType": "visual_repair",
+      "userIntent": "Convert the eight UI documents and comments into page-by-page checkbox lists before implementing page repairs.",
+      "painPoint": "Agents jumped into broad UI repair without page-level acceptance rows and then stopped with partial work.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T08:08:26.356Z",
+          "thread": "Captain OS",
+          "excerpt": "на каждую страницу ... to-do-лист: от 20 до 100 bullet ... потом идешь делать страницу за страницей"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-ui-004-a",
+          "visibleObject": "Route-level UI repair checklist",
+          "expectedState": "Every touched page has explicit before/after, visible rows, owner lane, and StarPom inspection object.",
+          "evidenceRequired": [
+            "route checklist artifact",
+            "unchecked rows carried into next packet",
+            "no broad done claim with open rows"
+          ],
+          "ownerLane": "Captain",
+          "blockingRuleRefs": [
+            "semantic_next_packet_required"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "semantic_next_packet_required"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 8,
+      "expectedNextAction": "Block implementation/done claim until page-level checklist exists or open rows are next-packet-bound."
+    },
+    {
+      "taskId": "p10e-ui-005-transfer-costs-scroll-table-precedent",
+      "domain": "ui_visual",
+      "taskType": "visual_repair",
+      "userIntent": "Fix Transfer Costs table and map by using the existing jurisdiction precedent instead of inventing a new layout.",
+      "painPoint": "Scroll was broken, table text was too large, and the precedent was ignored despite repeated instruction.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-17T17:14:07.602Z",
+          "thread": "Исследовать ставки переводов",
+          "excerpt": "Скролл не работает. таблица супер крупным текстом. возьми основы из юриздикций"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-ui-005-a",
+          "visibleObject": "Transfer Costs table and scroll container",
+          "expectedState": "Table density, scroll behavior, popup, and tooltip patterns match jurisdiction precedent.",
+          "evidenceRequired": [
+            "side-by-side screenshot with jurisdiction precedent",
+            "scroll smoke evidence",
+            "table density evidence"
+          ],
+          "ownerLane": "Surface officer",
+          "blockingRuleRefs": [
+            "visible_acceptance_missing",
+            "user_request_result_mismatch"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "visible_acceptance_missing",
+        "user_request_result_mismatch"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 6,
+      "expectedNextAction": "Block done claim until visible Transfer Costs surface matches the named precedent."
+    },
+    {
+      "taskId": "p10e-ui-006-map-line-anchor-visible-bug",
+      "domain": "ui_visual",
+      "taskType": "visual_repair",
+      "userIntent": "Connect transfer corridor lines to the already correct map points.",
+      "painPoint": "The map points were correct but the drawn lines attached to the wrong places.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T12:22:10.093Z",
+          "thread": "Исследовать ставки переводов",
+          "excerpt": "на карте отмечены правильные точки ... полоски ... не в правильные точки"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-ui-006-a",
+          "visibleObject": "Transfer corridor line endpoints",
+          "expectedState": "Lines terminate at the same coordinates as the visible selected country/region markers.",
+          "evidenceRequired": [
+            "map screenshot with selected origin and destination",
+            "coordinate or pixel proximity proof",
+            "regression smoke for at least two corridors"
+          ],
+          "ownerLane": "Surface officer",
+          "blockingRuleRefs": [
+            "visible_acceptance_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "visible_acceptance_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 5,
+      "expectedNextAction": "Block visual completion until line endpoints are proven on the selected markers."
+    },
+    {
+      "taskId": "p10e-ui-007-map-zoom-jump-visible-bug",
+      "domain": "ui_visual",
+      "taskType": "visual_repair",
+      "userIntent": "Stop map reset/zoom-out when switching countries and instead smoothly pan at the same zoom level.",
+      "painPoint": "The agent repeatedly claimed map polish while the same jump/reset behavior remained visible.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T12:41:27.355Z",
+          "thread": "Исследовать ставки переводов",
+          "excerpt": "карта делает снова ... zoom out ... вместо того, чтобы просто плавно ... перевести фокус"
+        },
+        {
+          "timestamp": "2026-05-18T12:56:45.101Z",
+          "thread": "Исследовать ставки переводов",
+          "excerpt": "все равно прыгает"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-ui-007-a",
+          "visibleObject": "Transfer map country-change animation",
+          "expectedState": "Country change pans smoothly without full zoom reset.",
+          "evidenceRequired": [
+            "short video or frame sequence",
+            "animation state assertion",
+            "repeat after fix on two country changes"
+          ],
+          "ownerLane": "QA officer",
+          "blockingRuleRefs": [
+            "visible_acceptance_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "visible_acceptance_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 5,
+      "expectedNextAction": "Block claim until repeated visual behavior no longer jumps."
+    },
+    {
+      "taskId": "p10e-data-001-country-coverage-question",
+      "domain": "data_product",
+      "taskType": "data_repair",
+      "userIntent": "Explain why country coverage is incomplete and prove the data boundary before UI claims.",
+      "painPoint": "The UI implied broader data coverage than the available corridor data supported.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-17T17:23:13.774Z",
+          "thread": "Исследовать ставки переводов",
+          "excerpt": "почему не все страны заполнены"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-data-001-a",
+          "visibleObject": "Transfer Costs country coverage",
+          "expectedState": "Coverage limits are explicit; no arbitrary country/corridor availability is implied.",
+          "evidenceRequired": [
+            "data inventory count",
+            "source coverage proof",
+            "negative proof for unavailable corridors"
+          ],
+          "ownerLane": "Data officer",
+          "blockingRuleRefs": [
+            "negative_proof_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "negative_proof_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 5,
+      "expectedNextAction": "Block readiness claim until coverage proof and missing-corridor negative proof exist."
+    },
+    {
+      "taskId": "p10e-data-002-smart-money-cbdc-missing",
+      "domain": "data_product",
+      "taskType": "data_repair",
+      "userIntent": "Find why Bluechip ratings and CBDC records disappeared or are not visible.",
+      "painPoint": "Main/dev state and data source boundaries were unclear, causing apparent missing data.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-17T18:10:41.779Z",
+          "thread": "Добавить Smart money",
+          "excerpt": "у нас же вроде как были рейтинги от bluechip - где они сейчас"
+        },
+        {
+          "timestamp": "2026-05-17T19:36:16.833Z",
+          "thread": "Добавить Smart money",
+          "excerpt": "у нас было больше CBDCs в списках. куда делись ?"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-data-002-a",
+          "visibleObject": "Smart Money data lists",
+          "expectedState": "Missing ratings/CBDCs are traced to branch, source, migration, or intentional exclusion with proof.",
+          "evidenceRequired": [
+            "branch/source inventory",
+            "record count before/after",
+            "negative proof for intentionally absent records"
+          ],
+          "ownerLane": "Data officer",
+          "blockingRuleRefs": [
+            "negative_proof_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "negative_proof_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 7,
+      "expectedNextAction": "Block data-ready claim until missing-record source truth is proven."
+    },
+    {
+      "taskId": "p10e-data-003-main-empty-entities-jurisdictions",
+      "domain": "data_product",
+      "taskType": "data_repair",
+      "userIntent": "Explain why main shows empty entities/jurisdictions and missing market reports.",
+      "painPoint": "The agent needed to disambiguate branch/main/data-load state before claiming product readiness.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-17T21:26:28.695Z",
+          "thread": "Captain OS",
+          "excerpt": "на мэйне в данных я не вижу ни в entities, ни в юрисдикшнс, там всё пусто"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-data-003-a",
+          "visibleObject": "Main data pages for entities, jurisdictions, and market reports",
+          "expectedState": "Main/dev/branch data availability is separated and backed by runtime source evidence.",
+          "evidenceRequired": [
+            "main route screenshot",
+            "data loader/source proof",
+            "branch comparison summary"
+          ],
+          "ownerLane": "Data officer",
+          "blockingRuleRefs": [
+            "negative_proof_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "negative_proof_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 8,
+      "expectedNextAction": "Block readiness claim until data absence/presence is proven per environment."
+    },
+    {
+      "taskId": "p10e-data-004-median-average-direct-answer-control",
+      "domain": "data_product",
+      "taskType": "direct_answer_control",
+      "userIntent": "Explain how median delivery can be less than one hour while average delivery is higher.",
+      "painPoint": "This is a direct data reasoning question, not an implementation or final-claim gate.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-17T21:09:14.166Z",
+          "thread": "Исследовать ставки переводов",
+          "excerpt": "как медиан деливери может быть меньше одного часа, хотя эверидж больше?"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-data-004-a",
+          "visibleObject": "Direct answer",
+          "expectedState": "Answer explains median vs average skew without mutating files or claiming data repair.",
+          "evidenceRequired": [
+            "concise direct answer"
+          ],
+          "ownerLane": "Captain",
+          "blockingRuleRefs": []
+        }
+      ],
+      "selectedRulesFired": [],
+      "expectedDecision": "should_pass",
+      "estimatedOperatorBurdenMinutes": 0,
+      "expectedNextAction": "Pass through as direct answer; no live blocking should fire."
+    },
+    {
+      "taskId": "p10e-data-005-world-bank-alternative-proof",
+      "domain": "data_product",
+      "taskType": "data_repair",
+      "userIntent": "Check whether World Bank or other sources can fill Transfer Costs coverage gaps.",
+      "painPoint": "Alternative data claims need source proof before product/UI expansion.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-17T21:25:42.478Z",
+          "thread": "Captain OS",
+          "excerpt": "почему эти данные покрывают так мало коридоров, и есть ли ещё какие-то альтернативные данные в World Bank?"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-data-005-a",
+          "visibleObject": "Transfer Costs source coverage",
+          "expectedState": "Alternative source availability is proven or explicitly rejected with source/date/evidence.",
+          "evidenceRequired": [
+            "source search log",
+            "coverage comparison",
+            "negative proof for unavailable fields"
+          ],
+          "ownerLane": "Data officer",
+          "blockingRuleRefs": [
+            "negative_proof_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "negative_proof_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 6,
+      "expectedNextAction": "Block source expansion claim until alternative data proof exists."
+    },
+    {
+      "taskId": "p10e-diag-001-backlog-inventory-before-diagram-work",
+      "domain": "diagrams_seo",
+      "taskType": "content_conveyor",
+      "userIntent": "Find the Institute diagram backlog and start creating diagrams from the backlog.",
+      "painPoint": "Agents need inventory/coverage before claiming all posts or diagram backlog are handled.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:14:54.810Z",
+          "thread": "Поднять бэклог и SEO",
+          "excerpt": "бэклог ... диаграмм, которую мы должны создать ... начать эти диаграммы создавать"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-diag-001-a",
+          "visibleObject": "Institute diagram backlog",
+          "expectedState": "Backlog inventory, coverage count, and open rows exist before broad creation/done claims.",
+          "evidenceRequired": [
+            "backlog inventory artifact",
+            "covered/missing counts",
+            "next batch packet"
+          ],
+          "ownerLane": "Content conveyor officer",
+          "blockingRuleRefs": [
+            "semantic_next_packet_required"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "semantic_next_packet_required"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 5,
+      "expectedNextAction": "Block broad diagram completion until inventory and next batch are bound."
+    },
+    {
+      "taskId": "p10e-diag-002-three-diagram-pilot-evidence",
+      "domain": "diagrams_seo",
+      "taskType": "content_conveyor",
+      "userIntent": "Implement the three Two-Stage Framework diagrams with value titles, lightbox, download, geometry, and sailor signoff.",
+      "painPoint": "Diagram work can pass code checks while missing visual/semantic evidence.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:14:54.814Z",
+          "thread": "Поднять бэклог и SEO",
+          "excerpt": "Матрос 2 ... смысловую проверку ... 3ий ревью ... геометрии, пересечений ... лайт боксе и скачивались"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-diag-002-a",
+          "visibleObject": "Three rendered article diagrams",
+          "expectedState": "Each diagram has value title, optional subtitle, lightbox proof, download proof, and geometry proof.",
+          "evidenceRequired": [
+            "desktop/mobile screenshots",
+            "lightbox/download smoke",
+            "semantic and visual QA signoff"
+          ],
+          "ownerLane": "Diagram QA officer",
+          "blockingRuleRefs": [
+            "visible_acceptance_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "visible_acceptance_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 6,
+      "expectedNextAction": "Block done claim until rendered diagram evidence and signoff rows exist."
+    },
+    {
+      "taskId": "p10e-diag-003-ten-post-batches-continuation",
+      "domain": "diagrams_seo",
+      "taskType": "content_conveyor",
+      "userIntent": "Continue diagram rollout across all posts in batches of ten posts per PR.",
+      "painPoint": "Agent must not stop after one good post or claim total backlog closure without batch packet.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:14:54.841Z",
+          "thread": "Поднять бэклог и SEO",
+          "excerpt": "можно так продолжать на все посты. по одному по порядку"
+        },
+        {
+          "timestamp": "2026-05-18T14:14:54.842Z",
+          "thread": "Поднять бэклог и SEO",
+          "excerpt": "давай по 10 постов на 1 пр"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-diag-003-a",
+          "visibleObject": "Diagram rollout batch plan",
+          "expectedState": "Open posts are grouped into 10-post PR packets with current done/missing counts.",
+          "evidenceRequired": [
+            "batch plan",
+            "current coverage inventory",
+            "next PR packet"
+          ],
+          "ownerLane": "Shipping officer",
+          "blockingRuleRefs": [
+            "semantic_next_packet_required"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "semantic_next_packet_required"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 4,
+      "expectedNextAction": "Block broad completion claim until the next 10-post packet exists."
+    },
+    {
+      "taskId": "p10e-diag-004-diagram-image-seo-negative-proof",
+      "domain": "diagrams_seo",
+      "taskType": "content_conveyor",
+      "userIntent": "Create SEO image assets for diagrams with correct alt text and sitemap exposure only where approved.",
+      "painPoint": "SEO image assets can be generated while sitemap/noindex/opening approval remains unproven.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:14:54.931Z",
+          "thread": "Поднять бэклог и SEO",
+          "excerpt": "создать ... JPG-картинки ... правильный alt-текст ... вываливаться в поисках"
+        },
+        {
+          "timestamp": "2026-05-18T15:54:49.979Z",
+          "thread": "SEO Diagrams",
+          "excerpt": "Image sitemap продолжает фильтроваться по full-opening approval manifest"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-diag-004-a",
+          "visibleObject": "Diagram SEO asset and sitemap contract",
+          "expectedState": "Assets may be ready, but sitemap exposure has approval/noindex negative proof.",
+          "evidenceRequired": [
+            "asset inventory",
+            "alt/caption metadata",
+            "sitemap and noindex negative proof"
+          ],
+          "ownerLane": "SEO officer",
+          "blockingRuleRefs": [
+            "negative_proof_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "negative_proof_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 6,
+      "expectedNextAction": "Block SEO-ready claim until exposure and negative-proof artifacts exist."
+    },
+    {
+      "taskId": "p10e-diag-005-grey-block-empty-visible",
+      "domain": "diagrams_seo",
+      "taskType": "visual_repair",
+      "userIntent": "Explain and fix the empty grey block in the diagram/content page.",
+      "painPoint": "A visible empty output state appeared after diagram/SEO work.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T15:10:40.372Z",
+          "thread": "SEO Diagrams",
+          "excerpt": "почему там пусто на сером блоке? что это за пост?"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-diag-005-a",
+          "visibleObject": "Grey content/diagram block",
+          "expectedState": "The block is either populated with the intended post/asset or removed with explanation.",
+          "evidenceRequired": [
+            "direct answer",
+            "fresh screenshot",
+            "route/source proof"
+          ],
+          "ownerLane": "Content officer",
+          "blockingRuleRefs": [
+            "stop_and_answer_required",
+            "visible_acceptance_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "stop_and_answer_required",
+        "visible_acceptance_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 4,
+      "expectedNextAction": "Answer first, then block completion until visible empty block is resolved."
+    },
+    {
+      "taskId": "p10e-diag-006-canon-evolution-before-repair",
+      "domain": "diagrams_seo",
+      "taskType": "process_runtime",
+      "userIntent": "Start by improving diagram templates/canon before downstream content-library repairs.",
+      "painPoint": "Agents should find and repair template/canon gaps before judging downstream implementations.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T16:52:26.356Z",
+          "thread": "Review Diagrams",
+          "excerpt": "агенты могут и темплецйты тоже улучшать. начнут с них, увидят дыры"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-diag-006-a",
+          "visibleObject": "Canon evolution protocol",
+          "expectedState": "Template/canon gaps are inventoried and bound before downstream repair starts.",
+          "evidenceRequired": [
+            "canon evolution checklist",
+            "template gap inventory",
+            "downstream repair packet"
+          ],
+          "ownerLane": "Captain",
+          "blockingRuleRefs": [
+            "semantic_next_packet_required"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "semantic_next_packet_required"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 6,
+      "expectedNextAction": "Block downstream-repair start until canon evolution rows are packeted."
+    },
+    {
+      "taskId": "p10e-os-001-judges-direct-question",
+      "domain": "captain_os",
+      "taskType": "process_runtime",
+      "userIntent": "Answer whether five judges were actually launched before claiming judge synthesis.",
+      "painPoint": "Agent simulated judge language without clear dispatch evidence.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T06:33:50.094Z",
+          "thread": "Captain OS",
+          "excerpt": "ты хочешь сказать, что ты запустил все пять матросов, и они уже все вернули результат?"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-os-001-a",
+          "visibleObject": "Judge dispatch claim",
+          "expectedState": "Direct yes/no answer appears before any further synthesis; dispatch artifacts are referenced if claimed.",
+          "evidenceRequired": [
+            "answer-first transcript marker",
+            "judge dispatch artifact refs or admission that no judges were launched"
+          ],
+          "ownerLane": "Captain",
+          "blockingRuleRefs": [
+            "stop_and_answer_required",
+            "user_request_result_mismatch"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "stop_and_answer_required",
+        "user_request_result_mismatch"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 3,
+      "expectedNextAction": "Block work-first continuation; answer whether judges ran and cite evidence."
+    },
+    {
+      "taskId": "p10e-os-002-approach-not-specific-ui",
+      "domain": "captain_os",
+      "taskType": "process_runtime",
+      "userIntent": "Analyze the system approach, not the concrete UI repair task.",
+      "painPoint": "Agent drifted into implementation when the user asked for process/system analysis.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T06:35:45.619Z",
+          "thread": "Captain OS",
+          "excerpt": "Тебе сейчас не нужно решать конкретные задачи ... анализировали подход ... системно"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-os-002-a",
+          "visibleObject": "Task mode selection",
+          "expectedState": "Runtime blocks implementation path and stays in system-analysis mode.",
+          "evidenceRequired": [
+            "intent-mode artifact",
+            "no product code mutation",
+            "system-analysis output"
+          ],
+          "ownerLane": "Intent officer",
+          "blockingRuleRefs": [
+            "user_request_result_mismatch"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "user_request_result_mismatch"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 3,
+      "expectedNextAction": "Block implementation-first behavior and keep the task in Captain OS analysis mode."
+    },
+    {
+      "taskId": "p10e-os-003-no-false-done-continuation",
+      "domain": "captain_os",
+      "taskType": "process_runtime",
+      "userIntent": "Prevent agents from saying done when they only completed part of the task.",
+      "painPoint": "The user had to repeatedly push agents to enumerate unfinished work and continue.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T08:15:21.637Z",
+          "thread": "Captain OS",
+          "excerpt": "он говорит: «Я всё сделал». Вот я спрошу: «Что ты сделал?» Он говорит: «Я всё сделал частично»"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-os-003-a",
+          "visibleObject": "Final claim",
+          "expectedState": "Final claim is blocked while open work exists unless each row is closed, deferred, or next-packet-bound.",
+          "evidenceRequired": [
+            "open work inventory",
+            "closed/deferred/next-packet status per row",
+            "continuation plan"
+          ],
+          "ownerLane": "StarPom",
+          "blockingRuleRefs": [
+            "semantic_next_packet_required"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "semantic_next_packet_required"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 4,
+      "expectedNextAction": "Block done claim; require open-work inventory and continuation."
+    },
+    {
+      "taskId": "p10e-os-004-span-of-control-hierarchy",
+      "domain": "captain_os",
+      "taskType": "process_runtime",
+      "userIntent": "Distribute OS workload like a company hierarchy: one manager handles about five direct reports.",
+      "painPoint": "A complex OS on one captain risks the same overload it is meant to prevent.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:24:27.323Z",
+          "thread": "Captain OS",
+          "excerpt": "1 человек не управляет 1000. 1 управляет 5. каждый из этих 5 управляет тоже 5"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-os-004-a",
+          "visibleObject": "Crew plan",
+          "expectedState": "More than five active rows creates officer lanes with bounded context budgets.",
+          "evidenceRequired": [
+            "officer hierarchy artifact",
+            "row-to-officer map",
+            "context budget per role"
+          ],
+          "ownerLane": "Captain",
+          "blockingRuleRefs": [
+            "span_of_control_violation",
+            "context_budget_violation"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "span_of_control_violation",
+        "context_budget_violation"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 5,
+      "expectedNextAction": "Block overloaded crew plan until officer hierarchy and context budgets exist."
+    },
+    {
+      "taskId": "p10e-os-005-universal-state-machine",
+      "domain": "captain_os",
+      "taskType": "process_runtime",
+      "userIntent": "Make the OS work for any task, not only UI Library or CMS, by using a state machine per task.",
+      "painPoint": "A validator-only approach is too narrow; canary needs task-level state and transitions.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T09:29:25.074Z",
+          "thread": "Captain OS",
+          "excerpt": "лучше UI Library или CMS - должно работать везде! ... Нужен не просто validator, а state machine"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-os-005-a",
+          "visibleObject": "Per-task execution state machine",
+          "expectedState": "Task has state transitions, blockers, evidence, and next action before final claim.",
+          "evidenceRequired": [
+            "state-machine artifact",
+            "transition log",
+            "final-claim gate"
+          ],
+          "ownerLane": "Runtime officer",
+          "blockingRuleRefs": [
+            "semantic_next_packet_required"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "semantic_next_packet_required"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 4,
+      "expectedNextAction": "Block 90%+ claim until the state-machine path is present for the task."
+    },
+    {
+      "taskId": "p10e-delivery-001-dev-prod-deck-hotfix-proof",
+      "domain": "delivery_ops",
+      "taskType": "delivery_hotfix",
+      "userIntent": "Fix dev and prod deck share links urgently and prove both environments work.",
+      "painPoint": "Hotfix done claims are unsafe without dev/prod negative and positive proof.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:10:40.829Z",
+          "thread": "Исправить Dev и Prod презентацию",
+          "excerpt": "Нужен супергорячий фикс Дева, и нужен супергорячий фикс Прода ... презентация не грузится"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-delivery-001-a",
+          "visibleObject": "Dev and prod deck share URLs",
+          "expectedState": "Both URLs load the correct current presentation in normal and anonymous browser contexts.",
+          "evidenceRequired": [
+            "dev URL proof",
+            "prod URL proof",
+            "anonymous-window proof",
+            "persistence proof"
+          ],
+          "ownerLane": "Shipping officer",
+          "blockingRuleRefs": [
+            "negative_proof_missing"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "negative_proof_missing"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 8,
+      "expectedNextAction": "Block fixed claim until dev/prod/anonymous/persistence evidence exists."
+    },
+    {
+      "taskId": "p10e-delivery-002-fix-means-dev-prod-perfect",
+      "domain": "delivery_ops",
+      "taskType": "delivery_hotfix",
+      "userIntent": "Treat a fix as complete only when it works on dev and prod, not as a local patch.",
+      "painPoint": "Runtime-only fixes and partial environment proof caused repeated frustration.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:29:01.034Z",
+          "thread": "Исправить Dev и Prod презентацию",
+          "excerpt": "фикс - это когда все работает ... на деве и проде ... идеально"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-delivery-002-a",
+          "visibleObject": "Fix closure claim",
+          "expectedState": "Final fix claim includes dev proof, prod proof, and persistence proof or stays blocked.",
+          "evidenceRequired": [
+            "dev verification",
+            "prod verification",
+            "persistence or deployment config proof"
+          ],
+          "ownerLane": "Shipping officer",
+          "blockingRuleRefs": [
+            "negative_proof_missing",
+            "semantic_next_packet_required"
+          ]
+        }
+      ],
+      "selectedRulesFired": [
+        "negative_proof_missing",
+        "semantic_next_packet_required"
+      ],
+      "expectedDecision": "should_block",
+      "estimatedOperatorBurdenMinutes": 6,
+      "expectedNextAction": "Block final fix claim until environment evidence and persistence are closed."
+    },
+    {
+      "taskId": "p10e-control-001-positive-visual-feedback",
+      "domain": "control",
+      "taskType": "direct_answer_control",
+      "userIntent": "Acknowledge positive feedback without triggering heavy OS gates.",
+      "painPoint": "The canary must not over-block simple positive feedback.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:14:54.840Z",
+          "thread": "Поднять бэклог и SEO",
+          "excerpt": "кайф, мне нравится"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-control-001-a",
+          "visibleObject": "Conversation turn",
+          "expectedState": "Pass through as lightweight acknowledgement or continue existing work.",
+          "evidenceRequired": [
+            "no blocking rule fires"
+          ],
+          "ownerLane": "Captain",
+          "blockingRuleRefs": []
+        }
+      ],
+      "selectedRulesFired": [],
+      "expectedDecision": "should_pass",
+      "estimatedOperatorBurdenMinutes": 0,
+      "expectedNextAction": "Pass through; do not require extra acceptance packet."
+    },
+    {
+      "taskId": "p10e-control-002-short-ok",
+      "domain": "control",
+      "taskType": "continuation_control",
+      "userIntent": "Continue after a simple OK.",
+      "painPoint": "The canary should not treat every short continuation as a blocker.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:14:54.842Z",
+          "thread": "Поднять бэклог и SEO",
+          "excerpt": "ok"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-control-002-a",
+          "visibleObject": "Continuation permission",
+          "expectedState": "Pass through to the already scoped task.",
+          "evidenceRequired": [
+            "existing packet remains active"
+          ],
+          "ownerLane": "Captain",
+          "blockingRuleRefs": []
+        }
+      ],
+      "selectedRulesFired": [],
+      "expectedDecision": "should_pass",
+      "estimatedOperatorBurdenMinutes": 0,
+      "expectedNextAction": "Pass through."
+    },
+    {
+      "taskId": "p10e-control-003-server-and-next",
+      "domain": "control",
+      "taskType": "continuation_control",
+      "userIntent": "Bring up the server and continue the next already-scoped item.",
+      "painPoint": "A simple continuation command should remain lightweight when scope is already defined.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T14:14:54.867Z",
+          "thread": "Поднять бэклог и SEO",
+          "excerpt": "сервер + след поехали"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-control-003-a",
+          "visibleObject": "Dev server and next scoped item",
+          "expectedState": "Pass through, preserving existing packet and evidence expectations.",
+          "evidenceRequired": [
+            "server URL or status when work begins"
+          ],
+          "ownerLane": "Shipping officer",
+          "blockingRuleRefs": []
+        }
+      ],
+      "selectedRulesFired": [],
+      "expectedDecision": "should_pass",
+      "estimatedOperatorBurdenMinutes": 1,
+      "expectedNextAction": "Pass through to scoped action."
+    },
+    {
+      "taskId": "p10e-control-004-chat-difference-direct-answer",
+      "domain": "control",
+      "taskType": "direct_answer_control",
+      "userIntent": "Explain how this chat differs from SEO Diagrams.",
+      "painPoint": "Direct explanatory questions should answer, not trigger a broad implementation gate.",
+      "sourceMessages": [
+        {
+          "timestamp": "2026-05-18T16:29:17.268Z",
+          "thread": "Поднять бэклог и SEO",
+          "excerpt": "Как этот чат отличается от SEO diagrams?"
+        }
+      ],
+      "acceptanceRows": [
+        {
+          "id": "p10e-control-004-a",
+          "visibleObject": "Direct answer",
+          "expectedState": "Pass through as direct answer with no repo mutation requirement.",
+          "evidenceRequired": [
+            "concise answer"
+          ],
+          "ownerLane": "Captain",
+          "blockingRuleRefs": []
+        }
+      ],
+      "selectedRulesFired": [],
+      "expectedDecision": "should_pass",
+      "estimatedOperatorBurdenMinutes": 0,
+      "expectedNextAction": "Pass through as direct answer."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "public-studio-boundary-overclaim",
+  "title": "Public/studio boundary readiness cannot be overclaimed",
+  "task": "Incident repair: public/studio boundary, auth, private routes, protected chunks, and production-ready claims require security negative proof. Do not claim production-ready from positive render evidence only.",
+  "sourceCase": "docs/process/captain-os-lab/16-operating-system-readiness-review.md#public-studio-boundary",
+  "tags": ["incident_repair", "security", "public_studio_boundary", "production_ready"],
+  "expected": {
+    "intentMode": "incident_repair",
+    "minComplexityTier": "T4",
+    "minPlanDepth": "D4",
+    "requiredBlocks": [
+      "missing_security_negative_proof",
+      "public_boundary_overclaim",
+      "missing_final_claim_evidence"
+    ],
+    "requiredSailors": ["Captain", "Security", "QA", "Context", "Knowledge", "Shipping", "StarPom"]
+  },
+  "context": {
+    "sourceObject": "studio/public boundary contract",
+    "targetObject": "public plexo.institute and studio.plexo.institute route exposure"
+  }
+}
+

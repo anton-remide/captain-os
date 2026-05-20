@@ -1,0 +1,22 @@
+{
+  "id": "graphic-previews-system-grammar",
+  "title": "Graphic previews need system grammar, not page-local polish",
+  "task": "Build a reusable graphic preview system grammar through the UI Library and shared contracts. Do not close repeated preview drift with page-local polish only.",
+  "sourceCase": "docs/process/captain-os-lab/16-operating-system-readiness-review.md#graphic-previews",
+  "tags": ["system_refactor", "surface", "ui_library", "system_grammar"],
+  "expected": {
+    "intentMode": "system_refactor",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "missing_system_grammar_path",
+      "page_local_polish_risk"
+    ],
+    "requiredSailors": ["Captain", "Context", "Runtime", "QA", "Shipping", "Knowledge", "StarPom"]
+  },
+  "context": {
+    "sourceObject": "UI Library preview grammar",
+    "targetObject": "Runtime graphic preview surfaces"
+  }
+}
+

@@ -1,0 +1,87 @@
+version: 1
+id: P9E-SEMANTIC-SECURITY-NEGATIVE-PROOF
+title: Public route exposure proof cannot be generic evidence
+intentMode: incident_repair
+complexityTier: T4
+planDepth: D4
+captainMode: incident_repair
+owner: Captain
+sourceDocs: [docs/process/captain-os-lab/33-p9b-batch0-judge-reconciliation-and-p9e-hardening.md]
+acceptanceObjects: [public/studio route negative-proof matrix]
+requestedObjects: [public host exposure for /admin /cms /ui /ui-old]
+coverageMap:
+  - object: public host exposure for /admin /cms /ui /ui-old
+    status: covered
+    checklistRefs: [CHK-P9E-SECURITY-NEGATIVE]
+    owner: Security
+    reason: Route exposure is the requested inspection object.
+  - object: public/studio route negative-proof matrix
+    status: covered
+    checklistRefs: [CHK-P9E-SECURITY-NEGATIVE]
+    owner: QA
+    reason: Negative proof is the acceptance object.
+acceptedRisks: []
+sailors:
+  - sailor: Captain
+    owns: [incident packet]
+    mayDecide: [scope]
+    mustNotChange: [security boundary]
+    mustEscalateIf: [negative proof missing]
+    evidenceOwed: [security packet]
+  - sailor: Security
+    owns: [public route exposure]
+    mayDecide: [negative proof shape]
+    mustNotChange: [studio/public boundary]
+    mustEscalateIf: [route exposure unclear]
+    evidenceOwed: [public host negative proof]
+  - sailor: QA
+    owns: [evidence verification]
+    mayDecide: [fixture assertion]
+    mustNotChange: [semantic validator]
+    mustEscalateIf: [proof object is generic]
+    evidenceOwed: [public_host_negative_proof_required]
+  - sailor: StarPom
+    owns: [final claim block]
+    mayDecide: [closure status]
+    mustNotChange: [accepted_full policy]
+    mustEscalateIf: [security proof is missing]
+    evidenceOwed: [blocked closeout]
+  - sailor: Knowledge
+    owns: [rule mapping]
+    mayDecide: [fixture promotion]
+    mustNotChange: [process docs]
+    mustEscalateIf: [rule not reusable]
+    evidenceOwed: [hardening row]
+checklist:
+  - id: CHK-P9E-SECURITY-NEGATIVE
+    sourceRequirement: Public host /admin /cms /ui /ui-old access-control claims require public/studio route negative proof, not generic research evidence.
+    owner: QA
+    scope: [security, public host, studio boundary]
+    forbiddenScope: [generic evidence substitution]
+    acceptanceObject: public/studio route negative-proof matrix
+    userInspectionObject: public host exposure for /admin /cms /ui /ui-old
+    agentAcceptanceObject: public/studio route negative-proof matrix
+    acceptanceObjectMatch: true
+    requiredEvidence: [advisory-report.json]
+    negativeProofRequired: false
+    status: pass
+    blocking: true
+    evidenceRefs: [EVD-P9E-SECURITY-NEGATIVE]
+    rerunStatus: complete
+evidence:
+  - id: EVD-P9E-SECURITY-NEGATIVE
+    claimId: CHK-P9E-SECURITY-NEGATIVE
+    refs:
+      - type: artifact
+        value: generic advisory artifact
+        producedAt: "2026-05-18T00:00:00.000Z"
+        gitRef: source-controlled
+    freshness: current
+    verifier: QA
+nextPacket:
+  required: false
+  owner: Shipping
+  nextAction: ""
+  reason: ""
+  artifactRef: null
+  rows: []

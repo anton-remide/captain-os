@@ -1,0 +1,89 @@
+schemaVersion: captain-runtime-adapters.v1
+project: plexo-project
+defaultMode: shadow
+
+adapters:
+  - runtimeId: gemini-coding
+    ownerRegistryId: captain-gemini
+    instructionEntrypoint: GEMINI.md
+    captainEligibility: dynamic
+    defaultRole: captain_first
+    capabilities:
+      readFiles: true
+      writeFiles: true
+      shell: true
+      git: true
+      browserScreenshots: true
+      webSearch: true
+      mcpConnectors: true
+      structuredJson: true
+      longContext: true
+      backgroundParallelism: true
+    constraints:
+      mutationPolicy: allowed
+      approvalPolicy: operator_required
+      secretPolicy: no_public_exposure
+      contextBudget: scoped_only
+    captainOsHooks:
+      modeClassifier: manual
+      p10DangerStops: manual
+      contextRadius: supported
+      finalClaimGate: supported
+      evidenceAggregation: manual
+
+  - runtimeId: claude-code
+    ownerRegistryId: captain-claude
+    instructionEntrypoint: CLAUDE.md
+    captainEligibility: dynamic
+    defaultRole: captain_first
+    capabilities:
+      readFiles: true
+      writeFiles: true
+      shell: true
+      git: true
+      browserScreenshots: true
+      webSearch: true
+      mcpConnectors: true
+      structuredJson: true
+      longContext: true
+      backgroundParallelism: true
+    constraints:
+      mutationPolicy: allowed
+      approvalPolicy: operator_required
+      secretPolicy: no_public_exposure
+      contextBudget: scoped_only
+    captainOsHooks:
+      modeClassifier: manual
+      p10DangerStops: supported
+      contextRadius: supported
+      finalClaimGate: supported
+      evidenceAggregation: manual
+
+  - runtimeId: codex
+    ownerRegistryId: captain-codex
+    instructionEntrypoint: AGENTS.md
+    captainEligibility: dynamic
+    defaultRole: captain_first
+    capabilities:
+      readFiles: true
+      writeFiles: true
+      shell: true
+      git: true
+      browserScreenshots: true
+      webSearch: true
+      mcpConnectors: true
+      structuredJson: true
+      longContext: true
+      backgroundParallelism: true
+    constraints:
+      mutationPolicy: allowed
+      approvalPolicy: none
+      secretPolicy: no_public_exposure
+      contextBudget: scoped_only
+    captainOsHooks:
+      modeClassifier: supported
+      p10DangerStops: supported
+      contextRadius: supported
+      finalClaimGate: supported
+      evidenceAggregation: supported
+

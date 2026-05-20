@@ -1,0 +1,26 @@
+{
+  "id": "screenshot-visible-row-missed",
+  "title": "Screenshot visible row missed despite green tests",
+  "task": "The agent reports tests green, but Anton's screenshot still shows the requested visible object. The FORMATS left rail block remains visible after the claimed repair.",
+  "sourceCase": "docs/process/captain-os-lab/38-p0-operating-safety-stop-visual-span.md#visible-acceptance",
+  "tags": ["operating_safety", "visual_acceptance", "screenshot", "false_green"],
+  "expected": {
+    "intentMode": "preserve_and_repair",
+    "minComplexityTier": "T2",
+    "minPlanDepth": "D2",
+    "requiredBlocks": [
+      "visible_acceptance_missing"
+    ],
+    "requiredSailors": ["Captain", "Surface", "QA", "StarPom"]
+  },
+  "context": {
+    "testsGreen": "true",
+    "visibleAcceptanceOpen": "true",
+    "visibleAcceptanceObjects": "FORMATS left rail block",
+    "missingVisibleObjects": "FORMATS left rail block",
+    "targetSurface": "UI Library Graphic Previews",
+    "expectedVisibleState": "FORMATS rail block removed from the operator view",
+    "currentVisibleState": "FORMATS rail block is still visible in the screenshot",
+    "acceptanceObject": "visible screenshot object"
+  }
+}

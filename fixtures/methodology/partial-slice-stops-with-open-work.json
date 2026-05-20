@@ -1,0 +1,31 @@
+{
+  "id": "partial-slice-stops-with-open-work",
+  "title": "Partial slice stops with open work",
+  "task": "Captain OS methodology case: the agent honestly admits some work is partial, but stops instead of continuing or binding the remaining open rows to a next packet.",
+  "sourceCase": "docs/process/captain-os-lab/27-no-false-done-and-autonomous-continuation.md#continuation-decision",
+  "tags": ["diamond_protocol", "methodology", "research_to_execution", "false_done"],
+  "expected": {
+    "intentMode": "strategy_design",
+    "minComplexityTier": "T3",
+    "minPlanDepth": "D3",
+    "requiredBlocks": [
+      "partial_done_without_next_packet",
+      "premature_stop_with_open_work"
+    ],
+    "requiredSailors": ["Captain", "QA", "StarPom", "Shipping"]
+  },
+  "context": {
+    "diamondCorpusComplete": "true",
+    "sourceFreshnessCurrent": "true",
+    "researchTraceComplete": "true",
+    "executionPlanComplete": "true",
+    "openWorkRemaining": "true",
+    "openWorkInventoryComplete": "true",
+    "broadDoneClaim": "false",
+    "nextPacketBound": "false",
+    "agentStopped": "true",
+    "stopConditionRecorded": "false",
+    "finalClaimEvidence": "partial progress evidence only",
+    "acceptanceObject": "Open work continuation decision"
+  }
+}

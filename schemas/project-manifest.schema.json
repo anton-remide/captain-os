@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "captain-project-manifest.schema.json",
+  "title": "Captain OS Project Manifest",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "captainOsVersion",
+    "mode",
+    "projectName",
+    "runtimes",
+    "paths",
+    "evidencePolicy"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "schemaVersion": { "const": "captain-project.v1" },
+    "captainOsVersion": { "type": "string", "minLength": 1 },
+    "mode": { "type": "string", "enum": ["shadow", "advisory", "selected_blocking"] },
+    "ownerName": { "type": "string" },
+    "projectName": { "type": "string", "minLength": 1 },
+    "tracking": { "type": "string" },
+    "runtimes": {
+      "type": "object",
+      "required": ["primary"],
+      "properties": {
+        "primary": { "type": "string", "minLength": 1 },
+        "reviewers": { "type": "array", "items": { "type": "string" } },
+        "optionalJudges": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "required": ["repairLedger", "labRuns", "brain", "processDocs"],
+      "additionalProperties": { "type": "string" }
+    },
+    "managedBlocks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "protectedPaths": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidencePolicy": {
+      "type": "object",
+      "required": [
+        "writeArtifactsToProject",
+        "writeArtifactsToOsRepo",
+        "globalBlockingEnabled",
+        "productAcceptedFullAllowed"
+      ],
+      "properties": {
+        "writeArtifactsToProject": { "const": true },
+        "writeArtifactsToOsRepo": { "const": false },
+        "requireScrubBeforePromotionToCore": { "type": "boolean" },
+        "globalBlockingEnabled": { "const": false },
+        "productAcceptedFullAllowed": { "const": false }
+      }
+    }
+  }
+}

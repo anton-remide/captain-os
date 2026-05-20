@@ -1,0 +1,17 @@
+schemaVersion: captain-runtime-adapters.v1
+adapters:
+  - runtimeId: codex
+    ownerRegistryId: captain-codex
+    instructionEntrypoint: AGENTS.md
+    captainEligibility: primary
+    defaultRole: captain
+  - runtimeId: claude-code
+    ownerRegistryId: captain-claude
+    instructionEntrypoint: CLAUDE.md
+    captainEligibility: secondary
+    defaultRole: read_only_judge
+  - runtimeId: gemini-coding
+    ownerRegistryId: captain-gemini
+    instructionEntrypoint: GEMINI.md
+    captainEligibility: crew_only
+    defaultRole: read_only_judge

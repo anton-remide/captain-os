@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "captain-runtime-adapter.schema.json",
+  "title": "Captain Runtime Adapter",
+  "type": "object",
+  "required": [
+    "runtimeId",
+    "ownerRegistryId",
+    "instructionEntrypoint",
+    "captainEligibility",
+    "defaultRole",
+    "capabilities",
+    "constraints",
+    "captainOsHooks",
+    "handoff"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "runtimeId": { "type": "string", "minLength": 1 },
+    "ownerRegistryId": { "type": "string", "minLength": 1 },
+    "instructionEntrypoint": {
+      "type": "string",
+      "enum": ["AGENTS.md", "CLAUDE.md", "GEMINI.md"]
+    },
+    "captainEligibility": {
+      "type": "string",
+      "enum": ["primary", "secondary", "crew_only", "disabled"]
+    },
+    "defaultRole": {
+      "type": "string",
+      "enum": ["captain", "read_only_judge", "worker"]
+    },
+    "capabilities": {
+      "type": "object",
+      "required": ["readFiles", "writeFiles", "shell", "git", "structuredJson"],
+      "additionalProperties": { "type": ["boolean", "array", "string", "number"] },
+      "properties": {
+        "readFiles": { "type": "boolean" },
+        "writeFiles": { "type": "boolean" },
+        "shell": { "type": "boolean" },
+        "git": { "type": "boolean" },
+        "browserScreenshots": { "type": "boolean" },
+        "webSearch": { "type": "boolean" },
+        "mcpConnectors": { "type": ["boolean", "array"] },
+        "structuredJson": { "type": "boolean" },
+        "longContext": { "type": "boolean" },
+        "backgroundParallelism": { "type": "boolean" }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "required": ["mutationPolicy", "approvalPolicy", "secretPolicy", "contextBudget"],
+      "properties": {
+        "mutationPolicy": {
+          "type": "string",
+          "enum": ["allowed", "packet_only", "read_only"]
+        },
+        "approvalPolicy": {
+          "type": "string",
+          "enum": ["none", "operator_required"]
+        },
+        "secretPolicy": {
+          "type": "string",
+          "enum": ["no_public_exposure"]
+        },
+        "contextBudget": {
+          "type": "string",
+          "enum": ["scoped_only"]
+        }
+      }
+    },
+    "captainOsHooks": {
+      "type": "object",
+      "required": [
+        "modeClassifier",
+        "p10DangerStops",
+        "contextRadius",
+        "finalClaimGate",
+        "evidenceAggregation"
+      ],
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["supported", "manual", "handoff_required"]
+      }
+    },
+    "handoff": {
+      "type": "object",
+      "required": [
+        "acceptsCaptainPacket",
+        "emitsVerdictJson",
+        "lockIdentity",
+        "timeoutMinutes",
+        "missingCapabilityBehavior"
+      ],
+      "properties": {
+        "acceptsCaptainPacket": { "type": "boolean" },
+        "emitsVerdictJson": { "type": "boolean" },
+        "lockIdentity": { "type": "string", "minLength": 1 },
+        "timeoutMinutes": { "type": "number", "minimum": 0 },
+        "missingCapabilityBehavior": {
+          "type": "string",
+          "enum": ["handoff", "block_claim", "continue_with_reason"]
+        }
+      }
+    }
+  }
+}
