@@ -1,7 +1,27 @@
 {
   "name": "captain-os",
   "version": "0.1.0-local-p11a",
-  "private": true,
+  "description": "Portable, cybernetic meta-operating system to protect codebase integrity and guide AI coding pilots with autonomous, closed-loop safety gates.",
+  "license": "MIT",
+  "author": "Anton Titov",
+  "homepage": "https://github.com/anton-remide/captain-os#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anton-remide/captain-os.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anton-remide/captain-os/issues"
+  },
+  "keywords": [
+    "captain-os",
+    "quality-gates",
+    "sre",
+    "llm-pilot",
+    "meta-os",
+    "control-systems",
+    "cybernetics",
+    "code-simplifier"
+  ],
   "type": "module",
   "bin": {
     "captain-os": "packages/cli/src/index.js"
