@@ -29,11 +29,18 @@ import { runSetupWizard } from './setup-wizard.js';
 import { runValidator } from './lock-validator.js';
 import { executeSimplificationPipeline } from './simplifier.js';
 import { runConfigureWizard } from './configure-wizard.js';
+import { runFormulateWizard } from './formulate.js';
 
 const command = process.argv[2] || 'help';
 
 if (command === 'doctor') {
   printReadinessConsole();
+} else if (command === 'formulate') {
+  const isDryRun = process.argv.includes('--dry-run');
+  runFormulateWizard(!isDryRun).catch(e => {
+    console.error('❌ Ошибка работы Goal Formulator:', e.message);
+    process.exit(1);
+  });
 } else if (command === 'configure') {
   const isDryRun = process.argv.includes('--dry-run');
   runConfigureWizard(!isDryRun);
@@ -71,6 +78,7 @@ if (command === 'doctor') {
   console.log('Available commands:');
   console.log('  init                 - Initialize project workspace (add --dry-run for non-interactive)');
   console.log('  configure            - Run interactive prompt-wizard to customize project rules');
+  console.log('  formulate            - Generate perfect DDP goals from simple user inputs');
   console.log('  doctor               - Check environment health and readiness');
   console.log('  validate-lock        - Validate .captain-os.lock.json structure and policies');
   console.log('  simplify             - Run code simplification pipeline (add --dry-run for preview)');
