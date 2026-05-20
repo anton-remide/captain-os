@@ -37,7 +37,9 @@ if (command === 'doctor') {
   printReadinessConsole();
 } else if (command === 'formulate') {
   const isDryRun = process.argv.includes('--dry-run');
-  runFormulateWizard(!isDryRun).catch(e => {
+  const rawArgs = process.argv.slice(3).filter(arg => arg !== '--dry-run' && !arg.startsWith('-'));
+  const directIntent = rawArgs.join(' ').trim();
+  runFormulateWizard(!isDryRun, directIntent).catch(e => {
     console.error('❌ Ошибка работы Goal Formulator:', e.message);
     process.exit(1);
   });
