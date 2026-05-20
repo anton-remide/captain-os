@@ -1,5 +1,5 @@
 schemaVersion: captain-runtime-adapters.v1
-project: plexo-project
+project: universal-project
 defaultMode: shadow
 
 adapters:

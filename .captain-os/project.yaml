@@ -2,7 +2,7 @@ schemaVersion: captain-project.v1
 captainOsVersion: 0.1.0-local-p11a
 mode: shadow
 ownerName: Anton
-projectName: plexo-project
+projectName: universal-project
 tracking: REPAIR-20260520-CAPTAIN-DYNAMIC-SETUP
 
 runtimes:
@@ -71,3 +71,10 @@ evidencePolicy:
   requireScrubBeforePromotionToCore: true
   globalBlockingEnabled: false
   productAcceptedFullAllowed: false
+
+customConfiguration:
+  kissGuidelines: "Писать лаконичный код без избыточности. Использовать чистые плоские функции вместо переусложненных классов, стремиться к максимальной простоте."
+  legacyPaths: "legacy, vendor, src/ui-old"
+  testCommand: "npm run test"
+  designSystemGuidelines: "Соблюдать дизайн-систему проекта. Запретить inline-стили и ad-hoc цвета, использовать только зарегистрированные токены."
+  securityBoundaries: "/admin, /cms, .env, privateKey, secretToken"

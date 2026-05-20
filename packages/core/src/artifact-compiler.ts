@@ -856,7 +856,7 @@ function validateSemanticEvidence(
   const hasNegativeProofRef = source.evidence.some((row) => row.refs.some((ref) => ref.type === 'negative_proof'))
 
   const mentionsInternalRouteExposure =
-    /\/admin|\/cms|\/ui-old|internal route|route exposure|public host|public\/studio|studio\.plexo|access[- ]?control/.test(text)
+    /\/admin|\/cms|\/ui-old|internal route|route exposure|public host|public\/studio|access[- ]?control/.test(text)
   const mentionsNegativeProof = /negative proof|not exposed|must not expose|exclusion proof|negative-proof/.test(text)
   if (mentionsInternalRouteExposure && mentionsNegativeProof) {
     if (!hasNegativeProofRequired) blocks.push('public_host_negative_proof_required')

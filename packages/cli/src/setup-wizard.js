@@ -85,7 +85,7 @@ function printUserAgreement(projectName, ownerName, runtimes, ragPaths, ledgerPa
 
 export async function runSetupWizard(interactive = true, defaults = {}) {
   console.log('\n======================================================================');
-  console.log('🚀  🤖  Plexo Captain OS - Интерактивный Мастер Настройки  🤖  🚀');
+  console.log('🚀  🤖  Captain OS - Интерактивный Мастер Настройки  🤖  🚀');
   console.log('======================================================================\n');
   console.log('Привет! Этот мастер поможет быстро развернуть Captain OS на вашем проекте.');
   console.log('Система полностью универсальна, независима от моделей (LLM-agnostic) и');
@@ -102,11 +102,11 @@ export async function runSetupWizard(interactive = true, defaults = {}) {
         input: process.stdin,
         output: process.stdout,
       })
-    : null;
+    : rl;
 
   try {
     // 1. Имя проекта
-    let projectName = defaults.projectName || 'plexo-project';
+    let projectName = defaults.projectName || 'universal-project';
     if (rl) {
       const ans = await askQuestion(rl, `📦 Имя вашего проекта [${projectName}]: `);
       if (ans.trim()) projectName = ans.trim();
