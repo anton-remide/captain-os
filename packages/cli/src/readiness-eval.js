@@ -151,32 +151,19 @@ export function printReadinessConsole() {
   const reset = isColor ? '\x1b[0m' : '';
 
   if (report.score === 100) {
-    console.log(`${green}       _______
-     .-'       '---------.
-   .'   _..---.._        '.      🏎️  Captain OS: FULL SPEED ACTIVE!
-  /   .'         '.  _..---'-.   🌟 100% Мощности & Стабильности
- |   /   [===]     \\/  .'     '. ⚡ Все системы запущены
- [==================| /  [==]   ]
- |   \\             /| \\       .'
-  \\   '.         .'  '-'-----'
-   '.   \`'-----'\`   .'
-     '-.________.-'${reset}\n`);
-    console.log(`🎉  ${green}Поздравляем!${reset} Ваша Captain OS настроена на 100% мощности и полностью готова к полету.`);
+    console.log(`🏎️  ${green}Captain OS: FULL SPEED ACTIVE!${reset}`);
+    console.log(`🌟 ${green}100% Мощности & Стабильности${reset}`);
+    console.log(`⚡ Все системы запущены и работают в штатном режиме.\n`);
+    console.log(`🎉 Ваша Captain OS настроена на 100% мощности и полностью готова к полету.`);
   } else {
-    console.log(`${yellow}       _______
-     .-'       '---------.
-   .'   _..---.._        '.      ⚠️  SYSTEM STATUS: DEGRADED
-  /   .'   🔧    '.  _..---'-.   🔧 Готовность менее 100%
- |   /   [ X ]     \\/  .'     '. 🛠️  Требуется техобслуживание
- [==================| /  [!!]   ]
- |   \\             /| \\       .'
-  \\   '.         .'  '-'-----'
-   '.   \`'-----'\`   .'
-     '-.________.-'${reset}\n`);
+    console.log(`⚠️  ${yellow}SYSTEM STATUS: DEGRADED${reset}`);
+    console.log(`🔧 Готовность системы: ${report.score}%`);
+    console.log(`🛠️  Требуется обслуживание для достижения 100%.\n`);
     console.log(`⚠️  ${yellow}Обнаружены недостающие элементы:${reset}`);
     report.missing.forEach((msg) => console.log(`  - ${msg}`));
     console.log(`\nЧтобы поднять готовность до 100%, выполните указанные рекомендации.`);
   }
+
 }
 
 // Запуск при прямом вызове
