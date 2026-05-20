@@ -118,11 +118,15 @@ export function runProjectTests(cwd = process.cwd()) {
   }
 
   try {
-    execSync(testCmd, { cwd, stdio: 'inherit' });
+    execSync(testCmd, { cwd, stdio: 'inherit', timeout: 60000 });
     console.log('✅ Все тесты успешно прошли! Эквивалентность функционала подтверждена.');
     return true;
   } catch (e) {
-    console.error('❌ Тесты упали после упрощения кода!');
+    if (e.code === 'ETIMEDOUT') {
+      console.error('❌ Превышено время ожидания: Тесты зависли или выполняются слишком долго (лимит 60 секунд)!');
+    } else {
+      console.error('❌ Тесты упали после упрощения кода!');
+    }
     return false;
   }
 }

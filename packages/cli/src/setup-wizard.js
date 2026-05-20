@@ -120,11 +120,11 @@ export async function runSetupWizard(interactive = true, defaults = {}) {
     }
 
     // 3. Поддерживаемые LLM модели
-    let runtimesStr = defaults.runtimes?.join(', ') || 'gemini-coding, claude-code, codex';
+    let runtimesStr = defaults.runtimes?.join(', ') || 'gemini-3.1-pro, claude-4.7, codex-5.3, gpt-5.5';
     if (rl) {
       console.log('\n🧠 Какие языковые модели (LLMs) вы планируете запускать на этой машине?');
       console.log('   У нас действует Dynamic Captain Mode: кто первый запущен — тот и Капитан!');
-      console.log('   Варианты: gemini-coding, claude-code, codex');
+      console.log('   Варианты: gemini-3.1-pro, claude-4.7, codex-5.3, gpt-5.5');
       const ans = await askQuestion(rl, `   Укажите поддерживаемые модели через запятую [${runtimesStr}]: `);
       if (ans.trim()) runtimesStr = ans.trim();
     }
@@ -189,9 +189,9 @@ runtimes:
   primaryOptions:
 ${runtimes.map((r) => `    - ${r}`).join('\n')}
   reviewers:
-    - claude-code
+    - claude-4.7
   optionalJudges:
-    - gemini-coding
+    - gemini-3.1-pro
 
 readinessCriteria:
   projectManifest: 20
@@ -261,8 +261,8 @@ defaultMode: shadow
 adapters:
 `;
 
-    if (runtimes.includes('gemini-coding') || runtimes.includes('gemini')) {
-      adaptersContent += `  - runtimeId: gemini-coding
+    if (runtimes.includes('gemini-3.1-pro') || runtimes.includes('gemini-coding') || runtimes.includes('gemini')) {
+      adaptersContent += `  - runtimeId: gemini-3.1-pro
     ownerRegistryId: captain-gemini
     instructionEntrypoint: GEMINI.md
     captainEligibility: dynamic
@@ -293,8 +293,8 @@ adapters:
 `;
     }
 
-    if (runtimes.includes('claude-code') || runtimes.includes('claude')) {
-      adaptersContent += `  - runtimeId: claude-code
+    if (runtimes.includes('claude-4.7') || runtimes.includes('claude-code') || runtimes.includes('claude')) {
+      adaptersContent += `  - runtimeId: claude-4.7
     ownerRegistryId: captain-claude
     instructionEntrypoint: CLAUDE.md
     captainEligibility: dynamic
@@ -325,9 +325,41 @@ adapters:
 `;
     }
 
-    if (runtimes.includes('codex') || runtimes.includes('openai')) {
-      adaptersContent += `  - runtimeId: codex
+    if (runtimes.includes('codex-5.3') || runtimes.includes('codex')) {
+      adaptersContent += `  - runtimeId: codex-5.3
     ownerRegistryId: captain-codex
+    instructionEntrypoint: AGENTS.md
+    captainEligibility: dynamic
+    defaultRole: captain_first
+    capabilities:
+      readFiles: true
+      writeFiles: true
+      shell: true
+      git: true
+      browserScreenshots: true
+      webSearch: true
+      mcpConnectors: true
+      structuredJson: true
+      longContext: true
+      backgroundParallelism: true
+    constraints:
+      mutationPolicy: allowed
+      approvalPolicy: none
+      secretPolicy: no_public_exposure
+      contextBudget: scoped_only
+    captainOsHooks:
+      modeClassifier: supported
+      p10DangerStops: supported
+      contextRadius: supported
+      finalClaimGate: supported
+      evidenceAggregation: supported
+
+`;
+    }
+
+    if (runtimes.includes('gpt-5.5') || runtimes.includes('gpt') || runtimes.includes('openai')) {
+      adaptersContent += `  - runtimeId: gpt-5.5
+    ownerRegistryId: captain-gpt
     instructionEntrypoint: AGENTS.md
     captainEligibility: dynamic
     defaultRole: captain_first

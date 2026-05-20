@@ -123,13 +123,14 @@ tracking: REPAIR-20260520-CAPTAIN-DYNAMIC-SETUP
 runtimes:
   strategy: dynamic_session_first
   primaryOptions:
-    - gemini-coding
-    - claude-code
-    - codex
+    - gemini-3.1-pro
+    - claude-4.7
+    - codex-5.3
+    - gpt-5.5
   reviewers:
-    - claude-code
+    - claude-4.7
   optionalJudges:
-    - gemini-coding
+    - gemini-3.1-pro
 \n`;
     }
 

@@ -1,5 +1,28 @@
 #!/usr/bin/env node
 
+import fs from 'node:fs';
+import path from 'node:path';
+
+function findRootCwd(startDir) {
+  let current = startDir;
+  while (true) {
+    if (fs.existsSync(path.join(current, '.git')) || fs.existsSync(path.join(current, '.captain-os'))) {
+      return current;
+    }
+    const parent = path.dirname(current);
+    if (parent === current) {
+      break;
+    }
+    current = parent;
+  }
+  return startDir;
+}
+
+const rootCwd = findRootCwd(process.cwd());
+if (rootCwd !== process.cwd()) {
+  process.chdir(rootCwd);
+}
+
 import { createSnapshot, rollbackSnapshot, listSnapshots } from './snapshot-engine.js';
 import { printReadinessConsole } from './readiness-eval.js';
 import { runSetupWizard } from './setup-wizard.js';
