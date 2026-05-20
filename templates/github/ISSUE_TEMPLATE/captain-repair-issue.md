@@ -40,6 +40,20 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: cognitive_skills
+    attributes:
+      label: "🧠 Требуемые Когнитивные Фреймворки (Cognitive Skills Recommended)"
+      description: "Выберите фреймворки, которые ИИ-пилот или разработчик должен задействовать:"
+      options:
+        - "🟢 Low Risk (Только локальный судья Gemini 3.5 Flash)"
+        - "🐙 Octopus Framework (Высокий Blast Radius: БД + UI / Типы / Импорты)"
+        - "🧠 Hardwork Framework (Высокая алгоритмическая сложность / Ядро)"
+        - "🔥 Multi-LLM Fire Chat (Критическое планирование или Pre-Merge аудит)"
+        - "🐙 + 🧠 (Совместное применение Octopus и Hardwork)"
+        - "🔥 + 🐙 + 🧠 (Максимальная защита по всем контурам)"
+      default: 0
+
   - type: textarea
     id: verification_plan
     attributes:

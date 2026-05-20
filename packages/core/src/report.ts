@@ -50,6 +50,29 @@ Mode: ${run.mode}
 Why:
 ${list(classification.matchedSignals)}
 
+## 🧠 Cognitive Skills Advisory (Рекомендации по Выбору Фреймворков)
+
+${(() => {
+  const activeAdvisories = [];
+  if (classification.hardWorkRequired) {
+    activeAdvisories.push(`* **🧠 Hardwork Framework [RECOMMENDED]:** Задаче присвоен высокий уровень технической сложности (T3/T4 или рефакторинг ядра).
+  * *Рекомендация:* Решайте задачу по шагам через команду \`/goal\` с фиксацией гипотез и снапшотов (\`npx captain-os snapshot save\`).`);
+  }
+  if (classification.octopusRequired) {
+    activeAdvisories.push(`* **🐙 Octopus Framework [RECOMMENDED]:** Обнаружен высокий Blast Radius (изменения затрагивают несколько слоев кодовой базы).
+  * *Рекомендация:* Постройте карту зависимостей в 4 плоскостях (каскады импортов, типы, схемы Zod/БД и UI). См. регламент в [\`docs/protocols/octopus-framework.md\`](file:///docs/protocols/octopus-framework.md).`);
+  }
+  const isFireChatRecommended = classification.complexityTier === 'T3' || classification.complexityTier === 'T4' || classification.finalClaimGateRequired;
+  if (isFireChatRecommended) {
+    activeAdvisories.push(`* **🔥 Multi-LLM Fire Chat Consensus [RECOMMENDED]:** Критический этап планирования или финализации перед слиянием (Pre-Merge/Deploy).
+  * *Рекомендация:* Запустите параллельное перекрестное ревью одной роли на 3 разных LLM-движках для исключения галлюцинаций (подробнее в [\`docs/protocols/fire-chat-protocol.md\`](file:///docs/protocols/fire-chat-protocol.md)).`);
+  }
+  if (activeAdvisories.length === 0) {
+    return `* **🟢 Low Risk Task:** Особые когнитивные фреймворки не требуются. Достаточно быстрого автоматического тестирования и локальной верификации микро-судьей (Gemini 3.5 Flash).`;
+  }
+  return activeAdvisories.join('\n\n');
+})()}
+
 ## Crew
 
 Selected sailors:
