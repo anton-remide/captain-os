@@ -151,17 +151,17 @@ export function printReadinessConsole() {
   const reset = isColor ? '\x1b[0m' : '';
 
   if (report.score === 100) {
-    console.log(`🏎️  ${green}Captain OS: FULL SPEED ACTIVE!${reset}`);
-    console.log(`🌟 ${green}100% Мощности & Стабильности${reset}`);
-    console.log(`⚡ Все системы запущены и работают в штатном режиме.\n`);
-    console.log(`🎉 Ваша Captain OS настроена на 100% мощности и полностью готова к полету.`);
+    console.log(`✅  ${green}Captain OS: FULLY OPERATIONAL & STABLE!${reset}`);
+    console.log(`🌟 ${green}100% готовности к работе${reset}`);
+    console.log(`⚡ Все компоненты настроены и функционируют штатно.\n`);
+    console.log(`🎉 Ваша система Captain OS полностью готова к выполнению задач.`);
   } else {
-    console.log(`⚠️  ${yellow}SYSTEM STATUS: DEGRADED${reset}`);
-    console.log(`🔧 Готовность системы: ${report.score}%`);
-    console.log(`🛠️  Требуется обслуживание для достижения 100%.\n`);
-    console.log(`⚠️  ${yellow}Обнаружены недостающие элементы:${reset}`);
+    console.log(`⚠️  ${yellow}SYSTEM STATUS: INCOMPLETE CONFIGURATION${reset}`);
+    console.log(`🔧 Текущая готовность: ${report.score}%`);
+    console.log(`🛠️  Необходима дополнительная настройка для достижения 100% готовности.\n`);
+    console.log(`⚠️  ${yellow}Недостающие элементы конфигурации:${reset}`);
     report.missing.forEach((msg) => console.log(`  - ${msg}`));
-    console.log(`\nЧтобы поднять готовность до 100%, выполните указанные рекомендации.`);
+    console.log(`\nВыполните указанные рекомендации для завершения настройки.`);
   }
 
 }

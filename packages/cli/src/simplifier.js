@@ -127,7 +127,7 @@ export function runProjectTests(cwd = process.cwd()) {
   }
 }
 
-// Запись телеметрии рефакторинга в Бензобак
+// Запись телеметрии рефакторинга в Реестр ремонта
 export function logTelemetry(cwd = process.cwd(), metrics = {}) {
   const { repairLedgerPath } = getProjectConfig(cwd);
   const ledgerFullPath = path.join(cwd, repairLedgerPath);
@@ -156,7 +156,7 @@ export function logTelemetry(cwd = process.cwd(), metrics = {}) {
     ledger.push(logEntry);
     fs.mkdirSync(path.dirname(ledgerFullPath), { recursive: true });
     fs.writeFileSync(ledgerFullPath, JSON.stringify(ledger, null, 2), 'utf8');
-    console.log(`📊 Телеметрия рефакторинга записана в Бензобак (${repairLedgerPath}).`);
+    console.log(`📊 Телеметрия рефакторинга записана в Реестр ремонта (${repairLedgerPath}).`);
   } catch (e) {
     console.warn('⚠️ Не удалось записать телеметрию в реестр:', e.message);
   }

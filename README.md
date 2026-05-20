@@ -224,22 +224,22 @@ graph TD
         CLI --> GitStatus{"🔍 Git-статус файлов"}
         
         %% Ветвь новых файлов
-        GitStatus -->|NEW / untracked / A| NewFiles["🟢 Новые файлы"]
+        GitStatus -->|"NEW / untracked / A"| NewFiles["🟢 Новые файлы"]
         NewFiles --> AutoRefactor["✨ Авто-упрощение и рефакторинг <br> (Уплощение, Guard Clauses)"]
         
         %% Ветвь старых файлов
-        GitStatus -->|MODIFY / M| OldFiles["🔒 Старые стабильные файлы"]
+        GitStatus -->|"MODIFY / M"| OldFiles["🔒 Старые стабильные файлы"]
         OldFiles --> AgreementGate{"🚨 Conscious Agreement <br> (Осознанный ручной выбор)"}
-        AgreementGate -->|Одобрено разработчиком (Y)| AutoRefactor
-        AgreementGate -->|Отклонено разработчиком (N)| SkipOld["🚫 Пропустить рефакторинг файла"]
+        AgreementGate -->|"Одобрено разработчиком (Y)"| AutoRefactor
+        AgreementGate -->|"Отклонено разработчиком (N)"| SkipOld["🚫 Пропустить рефакторинг файла"]
         
         %% Авиационное резервирование
         AutoRefactor --> Backup["✈️ Аварийный снапшот резервирования <br> (.captain-os/snapshots/)"]
         Backup --> RunTests{"🧪 Прогон тестов проекта <br> (bun test / npm run test)"}
         
         %% Развилка тестов
-        RunTests -->|✅ Пройдены| Telemetry["📊 Логирование в Бензобак <br> (.ship/repair-ledger.json)"]
-        RunTests -->|❌ Сломались| Rollback["🔄 Mechanical Rollback <br> Жесткий откат из снапшота"]
+        RunTests -->|"✅ Пройдены"| Telemetry["📊 Логирование в Реестр ремонта <br> (.ship/repair-ledger.json)"]
+        RunTests -->|"❌ Сломались"| Rollback["🔄 Mechanical Rollback <br> Жесткий откат из снапшота"]
     end
     
     Telemetry --> Done(["🎉 Чистый и стабильный код!"])

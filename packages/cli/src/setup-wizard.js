@@ -61,7 +61,7 @@ function printUserAgreement(projectName, ownerName, runtimes, ragPaths, ledgerPa
   console.log(`   - \x1b[33mДинамический выбор Капитана (Dynamic Captain Mode)\x1b[0m: Управляющей моделью`);
   console.log(`     автоматически становится тот ИИ-ассистент, из сессии которого начата работа.`);
   console.log(`     Доступные рантаймы в контуре: \x1b[36m${runtimes.join(', ')}\x1b[0m`);
-  console.log(`   - \x1b[33mПараллельное ревью (AWD-контур)\x1b[0m: При сложных или междоменных задачах`);
+  console.log(`   - \x1b[33mПараллельное ревью\x1b[0m: При сложных или междоменных задачах`);
   console.log(`     автоматически подключается внешняя ЛЛМ (Claude/Codex) для перекрестной проверки.\n`);
 
   console.log('\x1b[1m📂  2. УПРАВЛЕНИЕ КОНТЕКСТОМ И СОСТОЯНИЕМ (STATE & STORAGE):\x1b[0m');
